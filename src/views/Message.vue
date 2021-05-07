@@ -1,31 +1,6 @@
 <template>
   <div class="messages">
-    <header>
-      <h1><a href="/">Groupomania</a></h1>
-    </header>
-
-    <input type="checkbox" />
-    <div class="burger-menu">
-      <div class="burger-menu-line__1"></div>
-      <div class="burger-menu-line__2"></div>
-      <div class="burger-menu-line__3"></div>
-    </div>
-    <div id="navigation-bar">
-      <div id="user">
-        <p id="user-infos">
-          Florian<br />u/Flo_SMNK • Connecté <span id="connection-state"></span>
-        </p>
-      </div>
-      <span class="separation-line"></span>
-      <ul id="favs">
-        <p>Favoris</p>
-        <a href="/threads"><li class="sub-fav-01">s/WebDevelopment</li></a>
-        <li class="sub-fav-02">s/SpaceX</li>
-        <li class="sub-fav-03">s/ProgrammerHumor</li>
-        <li class="sub-fav-04">s/Openclassrooms</li>
-        <li class="sub-fav-05">s/Github</li>
-      </ul>
-    </div>
+    <Layout />
 
     <main>
       <div id="informations-bar">
@@ -160,13 +135,53 @@
 </template>
 
 <script>
+import Layout from '@/components/layout';
+
 export default {
   name: 'Messages',
-  components: {},
+  components: { Layout },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.messages {
+  background-color: rgba(44, 61, 85, 0.05);
+  padding-top: 75px;
+  @media screen and (min-width: 992px) {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    grid-template-rows: 75px 1fr;
+    grid-template-areas:
+      'header header'
+      'sidebar main';
+    max-height: 100vh;
+    padding-top: 0;
+  }
+}
+
+/* Informations Bar */
+#informations-bar {
+  background: $light-blue;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media screen and(min-width: 992px) {
+    //margin-left: 350px;
+  }
+
+  p {
+    color: #fff;
+    line-height: 1.3em;
+    margin: 0 10px;
+
+    &:nth-child(2) {
+      text-align: right;
+    }
+  }
+}
+
 /* Post Line */
 #post-line {
   @media screen and(min-width: 992px) {
@@ -263,6 +278,13 @@ export default {
       margin: 10px;
       text-align: justify;
     }
+  }
+}
+
+main {
+  @media screen and (min-width: 992px) {
+    grid-area: main;
+    overflow-y: scroll;
   }
 }
 </style>
