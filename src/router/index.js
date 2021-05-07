@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Threads from '../views/Threads.vue';
+import Messages from '../views/Messages.vue';
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/threads',
     name: 'Threads',
     component: Threads,
+  },
+  {
+    path: '/messages',
+    name: 'Messages',
+    component: Messages,
   },
 ];
 

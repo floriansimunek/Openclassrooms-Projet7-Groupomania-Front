@@ -1,7 +1,7 @@
 <template>
-  <div class="thread">
+  <div class="threads">
     <header>
-      <h1><a href="../index.html">Groupomania</a></h1>
+      <h1><a href="/">Groupomania</a></h1>
     </header>
 
     <input type="checkbox" />
@@ -19,9 +19,7 @@
       <span class="separation-line"></span>
       <ul id="favs">
         <p>Favoris</p>
-        <a href="sub-threads-list.html"
-          ><li class="sub-fav-01">s/WebDevelopment</li></a
-        >
+        <a href="/threads"><li class="sub-fav-01">s/WebDevelopment</li></a>
         <li class="sub-fav-02">s/SpaceX</li>
         <li class="sub-fav-03">s/ProgrammerHumor</li>
         <li class="sub-fav-04">s/Openclassrooms</li>
@@ -36,7 +34,7 @@
       </div>
 
       <div id="threads">
-        <a href="thread-in-sub.html">
+        <a href="/messages">
           <div class="thread-in-sub">
             <p>
               Sujet : Comment faire une maquette Figma ?<br />Écrit par :
@@ -116,10 +114,36 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: 'Threads',
+  components: {},
+};
 </script>
 
 <style lang="scss">
+/* Informations Bar */
+#informations-bar {
+  background: $light-blue;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media screen and(min-width: 992px) {
+    //margin-left: 350px;
+  }
+
+  p {
+    color: #fff;
+    line-height: 1.3em;
+    margin: 0 10px;
+
+    &:nth-child(2) {
+      text-align: right;
+    }
+  }
+}
+
 #threads {
   @media screen and(min-width: 992px) {
     //margin-left: 350px;

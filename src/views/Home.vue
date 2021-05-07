@@ -21,9 +21,7 @@
       <span class="separation-line"></span>
       <ul id="favs">
         <p>Favoris</p>
-        <a href="pages/sub-threads-list.html"
-          ><li class="sub-fav-01">s/WebDevelopment</li></a
-        >
+        <a href="/threads"><li class="sub-fav-01">s/WebDevelopment</li></a>
         <li class="sub-fav-02">s/SpaceX</li>
         <li class="sub-fav-03">s/ProgrammerHumor</li>
         <li class="sub-fav-04">s/Openclassrooms</li>
@@ -41,7 +39,6 @@
 
 <script>
 // @ is an alias to /src
-
 export default {
   name: 'Home',
   components: {},
@@ -49,14 +46,6 @@ export default {
 </script>
 
 <style lang="scss">
-/* Variables */
-$transparent-light-blue: #84828f80;
-$light-blue: #84828f;
-$dark-blue: #3e4c5e;
-$darker-blue: #2c3d55;
-
-$screen-height-size: calc(100vh - 75px);
-
 /* Header */
 header {
   background-color: $darker-blue;
@@ -90,163 +79,12 @@ header {
   }
 }
 
-/* Informations Bar */
-#informations-bar {
-  background: $light-blue;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  @media screen and(min-width: 992px) {
-    //margin-left: 350px;
-  }
-
-  p {
-    color: #fff;
-    line-height: 1.3em;
-    margin: 0 10px;
-
-    &:nth-child(2) {
-      text-align: right;
-    }
-  }
-}
-
-#threads {
-  @media screen and(min-width: 992px) {
-    //margin-left: 350px;
-  }
-
-  a {
-    text-decoration: none;
-    color: #fff;
-  }
-
-  .thread-in-sub {
-    width: 90%;
-    margin: 10px auto;
-    border-radius: 3px;
-    height: 75px;
-    background: $transparent-light-blue;
-    color: #fff;
-
-    &:hover {
-      background: $light-blue;
-    }
-
-    p {
-      margin: auto 5px;
-      padding-top: 10px;
-    }
-  }
-}
-
 .separation-line {
   display: block;
   margin: 0 auto;
   width: 330px;
   height: 1px;
   background-color: $light-blue;
-}
-
-/* Post Line */
-#post-line {
-  @media screen and(min-width: 992px) {
-    //margin-left: 5%;
-  }
-
-  #user-text-post {
-    width: 90%;
-    margin: 10px 0;
-    margin-left: 100px;
-    background: #fff;
-    border-radius: 5px;
-    padding: 5px 0;
-
-    @media screen and(min-width: 992px) {
-      width: 80%;
-    }
-
-    p {
-      margin: 10px;
-      text-align: justify;
-    }
-
-    .separation-line {
-      width: 300px;
-    }
-
-    #buttons {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      margin: 15px 0;
-
-      @media screen and(min-width: 992px) {
-        justify-content: left;
-        margin-left: 15px;
-      }
-
-      .button {
-        border: 1px solid black;
-        border-radius: 5px;
-        padding: 5px 10px;
-        text-align: center;
-
-        @media screen and(min-width: 992px) {
-          margin: 0 5px;
-        }
-      }
-    }
-  }
-}
-
-/* Comments */
-#comments {
-  @media screen and(min-width: 992px) {
-    padding-left: 10%;
-  }
-
-  .post-comment {
-    width: 90%;
-    margin: 15px auto;
-    margin-right: 10px;
-    border-radius: 5px;
-    background: #fff;
-    padding: 5px 0;
-
-    @media screen and(min-width: 992px) {
-      width: 70%;
-      margin-right: auto;
-    }
-
-    .comment-infos {
-      display: flex;
-      margin: 15px auto;
-      justify-content: space-around;
-      align-items: center;
-
-      @media screen and(min-width: 992px) {
-        justify-content: left;
-      }
-
-      .profile-picture {
-        width: 50px;
-        height: 50px;
-        background: gray;
-
-        @media screen and(min-width: 992px) {
-          margin: 0 15px;
-        }
-      }
-    }
-
-    .comment-text {
-      margin: 10px;
-      text-align: justify;
-    }
-  }
 }
 
 /* Burger Menu */

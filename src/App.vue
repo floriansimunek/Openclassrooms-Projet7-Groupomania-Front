@@ -13,7 +13,9 @@
   box-sizing: border-box;
 }
 
-.home {
+.home,
+.threads,
+.messages {
   background-color: rgba(44, 61, 85, 0.05);
   padding-top: 75px;
   @media screen and (min-width: 992px) {
