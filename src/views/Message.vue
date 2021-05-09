@@ -3,10 +3,11 @@
     <Layout />
 
     <main>
-      <!-- TODO: delete v-for -->
+      <!-- TODO: delete v-if + v-for -->
       <div id="informations-bar">
         <MessageInformations
           v-for="message in messages"
+          v-if="message._id === $route.params.messageId"
           :key="message._id"
           :userId="message.userId"
           :subject="message.subject"
@@ -14,10 +15,15 @@
         />
       </div>
 
-      <!-- TODO: Message from props -->
+      <!-- TODO: delete v-if + v-for -->
       <div id="post-line">
         <div id="user-text-post">
-          <Message :key="messages._id" :message="messages.message" />
+          <Message
+            v-for="message in messages"
+            v-if="message._id === $route.params.messageId"
+            :key="message._id"
+            :message="message.message"
+          />
           <span class="separation-line"></span>
           <div id="buttons">
             <div class="reply-btn button">Répondre</div>
