@@ -2,7 +2,7 @@
   <fragment>
     <Custom-Header />
     <Burger-Menu />
-    <NavigationBar />
+    <Navigation-Bar />
   </fragment>
 </template>
 

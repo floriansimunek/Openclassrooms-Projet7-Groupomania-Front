@@ -9,6 +9,7 @@
         <p>Créé le 03/04/2014<br />15.2K threads</p>
       </div>
 
+      <!-- TODO: Display message with valid threadId -->
       <div id="threads">
         <Message
           v-for="message in messages"

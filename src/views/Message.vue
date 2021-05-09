@@ -3,35 +3,21 @@
     <Layout />
 
     <main>
+      <!-- TODO: delete v-for -->
       <div id="informations-bar">
-        <p>
-          <!-- TODO: informations from API (props) -->
-          Écrit par u/Max_SMNK • 01/09/2021<br />Sujet : Comment faire une
-          maquette Figma ?
-        </p>
+        <MessageInformations
+          v-for="message in messages"
+          :key="message._id"
+          :userId="message.userId"
+          :subject="message.subject"
+          :createdAt="message.createdAt"
+        />
       </div>
 
       <!-- TODO: Message from props -->
       <div id="post-line">
         <div id="user-text-post">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit aliquam
-            pharetra, mi scelerisque. Sed mattis arcu aliquam, turpis euismod
-            urna. Montes, molestie non fusce libero tincidunt laoreet. Gravida
-            interdum ullamcorper nisi quam sapien. Mi lorem morbi consectetur
-            dictum sollicitudin egestas nec enim. Enim ultricies enim, eu justo
-            mauris, amet. Urna tellus hac diam facilisi a. Augue varius
-            phasellus risus enim. Proin dolor eu volutpat praesent et malesuada.
-            Sollicitudin nulla vestibulum proin diam tortor volutpat. Risus,
-            vestibulum, diam hendrerit cursus pellentesque sollicitudin. Amet,
-            parturient volutpat mauris felis egestas eget sollicitudin urna.
-            Ornare imperdiet fringilla feugiat nullam vel sem. Ac ante malesuada
-            magna nisi velit porttitor. Elit amet faucibus faucibus est nec, id
-            pellentesque elementum. Eget cras amet, purus, sed. Quis risus
-            volutpat cras hac volutpat id et, in tincidunt. Nibh dolor et
-            praesent ut eget nunc habitasse ac. Varius tellus ut massa etiam
-            porttitor sit tellus massa in.
-          </p>
+          <Message :key="messages._id" :message="messages.message" />
           <span class="separation-line"></span>
           <div id="buttons">
             <div class="reply-btn button">Répondre</div>
@@ -55,81 +41,6 @@
               Augue varius phasellus risus enim.
             </p>
           </div>
-          <div class="post-comment">
-            <div class="comment-infos">
-              <div class="profile-picture"></div>
-              <p>Écrit par u/Jo_SMNK • 03/11/2021</p>
-            </div>
-            <p class="comment-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit
-              aliquam pharetra, mi scelerisque. Sed mattis arcu aliquam, turpis
-              euismod urna. Montes, molestie non fusce libero tincidunt laoreet.
-              Gravida interdum ullamcorper nisi quam sapien. Mi lorem morbi
-              consectetur dictum sollicitudin egestas nec enim. Enim ultricies
-              enim, eu justo mauris, amet. Urna tellus hac diam facilisi a.
-              Augue varius phasellus risus enim.
-            </p>
-          </div>
-          <div class="post-comment">
-            <div class="comment-infos">
-              <div class="profile-picture"></div>
-              <p>Écrit par u/Jo_SMNK • 03/11/2021</p>
-            </div>
-            <p class="comment-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit
-              aliquam pharetra, mi scelerisque. Sed mattis arcu aliquam, turpis
-              euismod urna. Montes, molestie non fusce libero tincidunt laoreet.
-              Gravida interdum ullamcorper nisi quam sapien. Mi lorem morbi
-              consectetur dictum sollicitudin egestas nec enim. Enim ultricies
-              enim, eu justo mauris, amet. Urna tellus hac diam facilisi a.
-              Augue varius phasellus risus enim.
-            </p>
-          </div>
-          <div class="post-comment">
-            <div class="comment-infos">
-              <div class="profile-picture"></div>
-              <p>Écrit par u/Jo_SMNK • 03/11/2021</p>
-            </div>
-            <p class="comment-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit
-              aliquam pharetra, mi scelerisque. Sed mattis arcu aliquam, turpis
-              euismod urna. Montes, molestie non fusce libero tincidunt laoreet.
-              Gravida interdum ullamcorper nisi quam sapien. Mi lorem morbi
-              consectetur dictum sollicitudin egestas nec enim. Enim ultricies
-              enim, eu justo mauris, amet. Urna tellus hac diam facilisi a.
-              Augue varius phasellus risus enim.
-            </p>
-          </div>
-          <div class="post-comment">
-            <div class="comment-infos">
-              <div class="profile-picture"></div>
-              <p>Écrit par u/Jo_SMNK • 03/11/2021</p>
-            </div>
-            <p class="comment-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit
-              aliquam pharetra, mi scelerisque. Sed mattis arcu aliquam, turpis
-              euismod urna. Montes, molestie non fusce libero tincidunt laoreet.
-              Gravida interdum ullamcorper nisi quam sapien. Mi lorem morbi
-              consectetur dictum sollicitudin egestas nec enim. Enim ultricies
-              enim, eu justo mauris, amet. Urna tellus hac diam facilisi a.
-              Augue varius phasellus risus enim.
-            </p>
-          </div>
-          <div class="post-comment">
-            <div class="comment-infos">
-              <div class="profile-picture"></div>
-              <p>Écrit par u/Jo_SMNK • 03/11/2021</p>
-            </div>
-            <p class="comment-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit
-              aliquam pharetra, mi scelerisque. Sed mattis arcu aliquam, turpis
-              euismod urna. Montes, molestie non fusce libero tincidunt laoreet.
-              Gravida interdum ullamcorper nisi quam sapien. Mi lorem morbi
-              consectetur dictum sollicitudin egestas nec enim. Enim ultricies
-              enim, eu justo mauris, amet. Urna tellus hac diam facilisi a.
-              Augue varius phasellus risus enim.
-            </p>
-          </div>
         </div>
       </div>
     </main>
@@ -138,10 +49,45 @@
 
 <script>
 import Layout from '@/components/layout';
+import Message from '@/components/inMessage';
+import MessageInformations from '@/components/messageInformations';
 
 export default {
   name: 'Messages',
-  components: { Layout },
+  components: { Layout, Message, MessageInformations },
+  data() {
+    return {
+      messages: [
+        {
+          _id: '608d509e2a55962e64786b52',
+          threadId: '608874dd6ab64712ecbfb83e',
+          userId: '654654564564156151b115b65',
+          subject: 'Message subject 2',
+          message: 'My message is so looooooooooooooooong 2',
+          createdAt: '2021-05-01T12:59:10.225Z',
+          __v: 0,
+        },
+        {
+          _id: '6095696cf819493534f5585f',
+          threadId: '608d50c72a55962e64786b53',
+          userId: '654654564564156151b115b65',
+          subject: 'Message subject 1',
+          message: 'Message subject 1 blablablabla',
+          createdAt: '2021-05-07T16:23:08.426Z',
+          __v: 0,
+        },
+        {
+          _id: '6095698bf819493534f55861',
+          threadId: '608d50c72a55962e64786b53',
+          userId: '654654564564156151b115b65',
+          subject: 'Message subject 3',
+          message: 'Message subject 3 blablablabla',
+          createdAt: '2021-05-07T16:23:39.976Z',
+          __v: 0,
+        },
+      ],
+    };
+  },
 };
 </script>
 
