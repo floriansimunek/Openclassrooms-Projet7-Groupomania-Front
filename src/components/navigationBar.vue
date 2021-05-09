@@ -9,22 +9,67 @@
     <span class="separation-line"></span>
     <ul id="favs">
       <p>Favoris</p>
-      <a href="/threads"><li class="sub-fav-01">s/WebDevelopment</li></a>
-      <li class="sub-fav-02">s/SpaceX</li>
-      <li class="sub-fav-03">s/ProgrammerHumor</li>
-      <li class="sub-fav-04">s/Openclassrooms</li>
-      <li class="sub-fav-05">s/Github</li>
+      <Thread
+        v-for="thread in threads"
+        :key="thread._id"
+        :name="thread.name"
+        :threadId="thread._id"
+      />
     </ul>
   </div>
 </template>
 
 <script>
+import Thread from '@/components/thread';
+
 export default {
   name: 'navigation-bar',
+  components: { Thread },
+  data() {
+    return {
+      threads: [
+        {
+          _id: '6097af4e361f6831c48d7a83',
+          userId: '6097af4a361f6831c48d7a82',
+          name: 'Thread name',
+          description: 'Thread description blablablablablablabla',
+          createdAt: '2021-05-09T09:45:50.224Z',
+        },
+        {
+          _id: '6097d2472d6ac23b78fb91c5',
+          userId: '6097af4a361f6831c48d7a82',
+          name: 'Thread name 2',
+          description: 'Thread description blablablablablablabla',
+          createdAt: '2021-05-09T12:15:03.018Z',
+        },
+        {
+          _id: '6097d24a2d6ac23b78fb91c6',
+          userId: '6097af4a361f6831c48d7a82',
+          name: 'Thread name 3',
+          description: 'Thread description blablablablablablabla',
+          createdAt: '2021-05-09T12:15:06.244Z',
+        },
+        {
+          _id: '6097d24d2d6ac23b78fb91c7',
+          userId: '6097af4a361f6831c48d7a82',
+          name: 'Thread name 4',
+          description: 'Thread description blablablablablablabla',
+          createdAt: '2021-05-09T12:15:09.437Z',
+        },
+        {
+          _id: '6097d2502d6ac23b78fb91c8',
+          userId: '6097af4a361f6831c48d7a82',
+          name: 'Thread name 5',
+          description: 'Thread description blablablablablablabla',
+          createdAt: '2021-05-09T12:15:12.180Z',
+        },
+      ],
+    };
+  },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 #navigation-bar {
   position: fixed;
   width: 100%;

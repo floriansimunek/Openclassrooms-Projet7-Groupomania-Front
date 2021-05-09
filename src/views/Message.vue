@@ -5,11 +5,13 @@
     <main>
       <div id="informations-bar">
         <p>
+          <!-- TODO: informations from API (props) -->
           Écrit par u/Max_SMNK • 01/09/2021<br />Sujet : Comment faire une
           maquette Figma ?
         </p>
       </div>
 
+      <!-- TODO: Message from props -->
       <div id="post-line">
         <div id="user-text-post">
           <p>
@@ -184,20 +186,17 @@ export default {
 
 /* Post Line */
 #post-line {
-  @media screen and(min-width: 992px) {
-    //margin-left: 5%;
-  }
-
   #user-text-post {
     width: 90%;
     margin: 10px 0;
-    margin-left: 100px;
+    margin-left: 5%;
     background: #fff;
     border-radius: 5px;
     padding: 5px 0;
 
     @media screen and(min-width: 992px) {
       width: 80%;
+      margin-left: 10%;
     }
 
     p {

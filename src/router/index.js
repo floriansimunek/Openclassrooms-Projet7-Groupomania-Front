@@ -13,12 +13,12 @@ const routes = [
     component: Home,
   },
   {
-    path: '/thread',
+    path: '/thread/:threadId',
     name: 'Thread',
     component: Thread,
   },
   {
-    path: '/message/:_id',
+    path: '/message/:messageId',
     name: 'Message',
     component: Message,
   },

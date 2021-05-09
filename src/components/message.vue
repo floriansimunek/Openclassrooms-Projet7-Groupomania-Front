@@ -1,9 +1,17 @@
 <template>
-  <a :href="`/message/${_id}`">
-    <div class="thread-in-sub">
+  <a :href="`/message/${messageId}`">
+    <div class="messageInThread">
       <p>
         Sujet : {{ subject }}<br />
-        Écrit par : {{ userId }} • {{ createdAt }}<br />
+        Écrit par : {{ userId }} •
+        {{
+          new Date(Date.parse(createdAt))
+            .toLocaleDateString('fr', {
+              hour: 'numeric',
+              minute: 'numeric',
+            })
+            .replace(':', 'h')
+        }}<br />
         {{ commentCount }} commentaires
       </p>
     </div>
@@ -12,7 +20,7 @@
 
 <script>
 export default {
-  name: 'thread',
+  name: 'message',
   props: {
     subject: {
       type: String,
@@ -32,7 +40,7 @@ export default {
       // TODO: Set required true
       required: false,
     },
-    _id: {
+    messageId: {
       type: String,
       required: true,
     },
@@ -46,7 +54,7 @@ a {
   color: #fff;
 }
 
-.thread-in-sub {
+.messageInThread {
   width: 90%;
   margin: 10px auto;
   border-radius: 3px;

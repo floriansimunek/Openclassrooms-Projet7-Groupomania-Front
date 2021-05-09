@@ -3,6 +3,7 @@
     <Layout />
 
     <main>
+      <!-- TODO: Informations from props -->
       <div id="informations-bar">
         <p>s/WebDevelopement<br />165.8K</p>
         <p>Créé le 03/04/2014<br />15.2K threads</p>
@@ -15,7 +16,7 @@
           :subject="message.subject"
           :createdAt="message.createdAt"
           :userId="message.userId"
-          :_id="message._id"
+          :messageId="message._id"
         />
       </div>
     </main>
