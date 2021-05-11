@@ -9,10 +9,11 @@
         <p>Créé le 03/04/2014<br />15.2K threads</p>
       </div>
 
-      <!-- TODO: Display message with valid threadId -->
+      <!-- TODO: delete v-if + v-for -->
       <div id="threads">
         <Message
           v-for="message in messages"
+          v-if="message.threadId === $route.params.threadId"
           :key="message._id"
           :subject="message.subject"
           :createdAt="message.createdAt"
@@ -36,7 +37,7 @@ export default {
       messages: [
         {
           _id: '608d509e2a55962e64786b52',
-          threadId: '608874dd6ab64712ecbfb83e',
+          threadId: '6097af4e361f6831c48d7a83',
           userId: '654654564564156151b115b65',
           subject: 'Message subject 2',
           message: 'My message is so looooooooooooooooong 2',
@@ -45,7 +46,7 @@ export default {
         },
         {
           _id: '6095696cf819493534f5585f',
-          threadId: '608d50c72a55962e64786b53',
+          threadId: '6097af4e361f6831c48d7a83',
           userId: '654654564564156151b115b65',
           subject: 'Message subject 1',
           message: 'Message subject 1 blablablabla',
@@ -54,7 +55,7 @@ export default {
         },
         {
           _id: '6095698bf819493534f55861',
-          threadId: '608d50c72a55962e64786b53',
+          threadId: '6097af4e361f6831c48d7a83',
           userId: '654654564564156151b115b65',
           subject: 'Message subject 3',
           message: 'Message subject 3 blablablabla',
