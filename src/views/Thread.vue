@@ -3,11 +3,15 @@
     <Layout />
 
     <main>
-      <!-- TODO: Informations from props -->
-      <div id="informations-bar">
-        <p>s/WebDevelopement<br />165.8K</p>
-        <p>Créé le 03/04/2014<br />15.2K threads</p>
-      </div>
+      <!-- TODO: delete v-if + v-for // userId into username -->
+      <ThreadInformations
+        v-for="thread in threads"
+        v-if="thread._id === $route.params.threadId"
+        :key="thread._id"
+        :createdAt="thread.createdAt"
+        :user="thread.userId"
+        :threadId="thread._id"
+      />
 
       <!-- TODO: delete v-if + v-for -->
       <div id="threads">
@@ -28,10 +32,11 @@
 <script>
 import Layout from '@/components/layout';
 import Message from '@/components/message';
+import ThreadInformations from '@/components/threadInformations';
 
 export default {
   name: 'Thread',
-  components: { Layout, Message },
+  components: { Layout, Message, ThreadInformations },
   data() {
     return {
       messages: [
@@ -63,6 +68,43 @@ export default {
           __v: 0,
         },
       ],
+      threads: [
+        {
+          _id: '6097af4e361f6831c48d7a83',
+          userId: '6097af4a361f6831c48d7a82',
+          name: 'Thread name',
+          description: 'Thread description blablablablablablabla',
+          createdAt: '2021-05-01T12:59:51.606Z',
+          __v: 0,
+        },
+        {
+          _id: '6095661ff819493534f5585c',
+          userId: '6097af4a361f6831c48d7a82',
+          name: 'Thread test 1',
+          description:
+            'Thread test 1 blablablablablablablablablablablablablablablablablablablabla',
+          createdAt: '2021-05-07T16:09:03.769Z',
+          __v: 0,
+        },
+        {
+          _id: '6095662cf819493534f5585d',
+          userId: '6097af4a361f6831c48d7a82',
+          name: 'Thread test 2',
+          description:
+            'Thread test 2 blablablablablablablablablablablablablablablablablablablabla',
+          createdAt: '2021-05-07T16:09:16.312Z',
+          __v: 0,
+        },
+        {
+          _id: '60956631f819493534f5585e',
+          userId: '6097af4a361f6831c48d7a82',
+          name: 'Thread test 3',
+          description:
+            'Thread test 3 blablablablablablablablablablablablablablablablablablablabla',
+          createdAt: '2021-05-07T16:09:21.679Z',
+          __v: 0,
+        },
+      ],
     };
   },
 };
@@ -81,29 +123,6 @@ export default {
       'sidebar main';
     max-height: 100vh;
     padding-top: 0;
-  }
-}
-
-/* Informations Bar */
-#informations-bar {
-  background: $light-blue;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  @media screen and(min-width: 992px) {
-    //margin-left: 350px;
-  }
-
-  p {
-    color: #fff;
-    line-height: 1.3em;
-    margin: 0 10px;
-
-    &:nth-child(2) {
-      text-align: right;
-    }
   }
 }
 
