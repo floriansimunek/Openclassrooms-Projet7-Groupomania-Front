@@ -8,9 +8,9 @@
         v-for="thread in threads"
         v-if="thread._id === $route.params.threadId"
         :key="thread._id"
+        :name="thread.name"
         :createdAt="thread.createdAt"
         :user="thread.userId"
-        :threadId="thread._id"
       />
 
       <!-- TODO: delete v-if + v-for -->
@@ -42,7 +42,7 @@ export default {
       messages: [
         {
           _id: '608d509e2a55962e64786b52',
-          threadId: '6097af4e361f6831c48d7a83',
+          threadId: '6097d2472d6ac23b78fb91c5',
           userId: '654654564564156151b115b65',
           subject: 'Message subject 2',
           message: 'My message is so looooooooooooooooong 2',
@@ -78,7 +78,7 @@ export default {
           __v: 0,
         },
         {
-          _id: '6095661ff819493534f5585c',
+          _id: '6097d2472d6ac23b78fb91c5',
           userId: '6097af4a361f6831c48d7a82',
           name: 'Thread test 1',
           description:
@@ -87,7 +87,7 @@ export default {
           __v: 0,
         },
         {
-          _id: '6095662cf819493534f5585d',
+          _id: '6097d24a2d6ac23b78fb91c6',
           userId: '6097af4a361f6831c48d7a82',
           name: 'Thread test 2',
           description:
@@ -96,7 +96,7 @@ export default {
           __v: 0,
         },
         {
-          _id: '60956631f819493534f5585e',
+          _id: '6097d24d2d6ac23b78fb91c7',
           userId: '6097af4a361f6831c48d7a82',
           name: 'Thread test 3',
           description:

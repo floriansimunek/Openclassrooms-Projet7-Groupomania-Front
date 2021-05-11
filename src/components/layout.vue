@@ -16,5 +16,3 @@ export default {
   components: { CustomHeader, BurgerMenu, NavigationBar },
 };
 </script>
-
-BurgerMenu
