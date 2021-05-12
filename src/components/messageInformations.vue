@@ -1,6 +1,6 @@
 <template>
   <p>
-    Écrit par {{ userId }} •
+    Écrit par {{ username }} •
     {{
       new Date(Date.parse(createdAt))
         .toLocaleDateString('fr', {
@@ -16,7 +16,7 @@
 export default {
   name: 'messageInformations',
   props: {
-    userId: {
+    username: {
       type: String,
       required: true,
     },

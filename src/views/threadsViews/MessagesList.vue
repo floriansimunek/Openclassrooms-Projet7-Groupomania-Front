@@ -3,7 +3,7 @@
     <div id="informations-bar">
       <MessageInformations
         :key="message._id"
-        :userId="message.userId"
+        :username="message.userId"
         :subject="message.subject"
         :createdAt="message.createdAt"
       />
