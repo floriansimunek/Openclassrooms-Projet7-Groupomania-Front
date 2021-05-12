@@ -1,10 +1,7 @@
 <template>
   <main>
-    <!-- TODO: delete v-if + v-for -->
     <div id="informations-bar">
       <MessageInformations
-        v-for="message in messages"
-        v-if="message._id === $route.params.messageId"
         :key="message._id"
         :userId="message.userId"
         :subject="message.subject"
@@ -12,15 +9,9 @@
       />
     </div>
 
-    <!-- TODO: delete v-if + v-for -->
     <div id="post-line">
       <div id="user-text-post">
-        <Message
-          v-for="message in messages"
-          v-if="message._id === $route.params.messageId"
-          :key="message._id"
-          :message="message.message"
-        />
+        <Message :key="message._id" :message="message.message" />
         <span class="separation-line"></span>
         <div id="buttons">
           <div class="reply-btn button">Répondre</div>
@@ -59,7 +50,7 @@ export default {
   components: { Message, MessageInformations },
   data() {
     return {
-      messages: [],
+      message: [],
     };
   },
   created() {
@@ -77,7 +68,7 @@ export default {
             'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDk3YWY0YTM2MWY2ODMxYzQ4ZDdhODIiLCJpYXQiOjE2MjA4MDc0NjgsImV4cCI6MTYyMDg5Mzg2OH0.Etrngr5ZT5p-foocf65BT3ji68_Q8Apay6vOPMjlRpY',
         },
       }).then(({ data }) => {
-        this.messages = data;
+        this.message = data;
       });
     },
   },

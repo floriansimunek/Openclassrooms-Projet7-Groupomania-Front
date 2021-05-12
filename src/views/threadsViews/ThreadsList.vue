@@ -1,20 +1,16 @@
 <template>
   <main>
-    <!-- TODO: delete v-if + v-for // userId into username -->
+    <!-- TODO: userId into username -->
     <ThreadInformations
-      v-for="thread in threads"
-      v-if="thread._id === $route.params.threadId"
       :key="thread._id"
       :name="thread.name"
       :createdAt="thread.createdAt"
       :user="thread.userId"
     />
 
-    <!-- TODO: delete v-if + v-for -->
     <div id="threads">
       <Message
         v-for="message in messages"
-        v-if="message.threadId === $route.params.threadId"
         :key="message._id"
         :subject="message.subject"
         :createdAt="message.createdAt"
@@ -36,24 +32,25 @@ export default {
   data() {
     return {
       messages: [],
-      threads: [],
+      thread: [],
     };
   },
   created() {
     this.fetchMessages();
-    this.fetchThreads();
+    this.fetchThread();
   },
   methods: {
-    fetchThreads() {
+    fetchThread() {
+      let threadId = this.$route.params.threadId;
       axios({
         method: 'get',
-        url: 'http://localhost:3000/api/thread',
+        url: `http://localhost:3000/api/thread/${threadId}`,
         headers: {
           Authorization:
             'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDk3YWY0YTM2MWY2ODMxYzQ4ZDdhODIiLCJpYXQiOjE2MjA4MDc0NjgsImV4cCI6MTYyMDg5Mzg2OH0.Etrngr5ZT5p-foocf65BT3ji68_Q8Apay6vOPMjlRpY',
         },
       }).then(({ data }) => {
-        this.threads = data;
+        this.thread = data;
       });
     },
     fetchMessages() {
@@ -69,6 +66,11 @@ export default {
         this.messages = data;
       });
     },
+  },
+  beforeRouteUpdate(to, from, next) {
+    next();
+    this.fetchThread();
+    this.fetchMessages();
   },
 };
 </script>
