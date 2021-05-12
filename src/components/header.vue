@@ -1,6 +1,6 @@
 <template>
   <header>
-    <h1><a href="/">Groupomania</a></h1>
+    <h1><router-link :to="{ name: 'Home' }">Groupomania</router-link></h1>
   </header>
 </template>
 

@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Message from '@/components/inMessage';
 import MessageInformations from '@/components/messageInformations';
 
@@ -58,36 +59,27 @@ export default {
   components: { Message, MessageInformations },
   data() {
     return {
-      messages: [
-        {
-          _id: '608d509e2a55962e64786b52',
-          threadId: '608874dd6ab64712ecbfb83e',
-          userId: '654654564564156151b115b65',
-          subject: 'Message subject 2',
-          message: 'My message is so looooooooooooooooong 2',
-          createdAt: '2021-05-01T12:59:10.225Z',
-          __v: 0,
-        },
-        {
-          _id: '6095696cf819493534f5585f',
-          threadId: '608d50c72a55962e64786b53',
-          userId: '654654564564156151b115b65',
-          subject: 'Message subject 1',
-          message: 'Message subject 1 blablablabla',
-          createdAt: '2021-05-07T16:23:08.426Z',
-          __v: 0,
-        },
-        {
-          _id: '6095698bf819493534f55861',
-          threadId: '608d50c72a55962e64786b53',
-          userId: '654654564564156151b115b65',
-          subject: 'Message subject 3',
-          message: 'Message subject 3 blablablabla',
-          createdAt: '2021-05-07T16:23:39.976Z',
-          __v: 0,
-        },
-      ],
+      messages: [],
     };
+  },
+  created() {
+    this.fetchMessage();
+  },
+  methods: {
+    fetchMessage() {
+      let threadId = this.$route.params.threadId;
+      let messageId = this.$route.params.messageId;
+      axios({
+        method: 'get',
+        url: `http://localhost:3000/api/thread/${threadId}/message/${messageId}`,
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDk3YWY0YTM2MWY2ODMxYzQ4ZDdhODIiLCJpYXQiOjE2MjA4MDc0NjgsImV4cCI6MTYyMDg5Mzg2OH0.Etrngr5ZT5p-foocf65BT3ji68_Q8Apay6vOPMjlRpY',
+        },
+      }).then(({ data }) => {
+        this.messages = data;
+      });
+    },
   },
 };
 </script>

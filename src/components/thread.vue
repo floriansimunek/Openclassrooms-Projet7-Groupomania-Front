@@ -1,12 +1,12 @@
 <template>
-  <a :href="`/thread/${threadId}`">
+  <router-link :to="{ name: 'ThreadsList', params: { threadId } }">
     <li class="">{{ name }}</li>
-  </a>
+  </router-link>
 </template>
 
 <script>
 export default {
-  name: 'thread',
+  name: 'navigationBar',
   props: {
     name: {
       type: String,
