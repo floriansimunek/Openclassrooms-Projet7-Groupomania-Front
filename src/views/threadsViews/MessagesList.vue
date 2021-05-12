@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main v-if="this.message._id">
     <div id="informations-bar">
       <MessageInformations
         :key="message._id"

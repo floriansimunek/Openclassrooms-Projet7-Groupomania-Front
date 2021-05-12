@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main v-if="this.thread._id">
     <!-- TODO: userId into username -->
     <ThreadInformations
       :key="thread._id"
