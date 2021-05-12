@@ -1,42 +1,37 @@
 <template>
-  <div class="threads">
-    <Layout />
+  <main>
+    <!-- TODO: delete v-if + v-for // userId into username -->
+    <ThreadInformations
+      v-for="thread in threads"
+      v-if="thread._id === $route.params.threadId"
+      :key="thread._id"
+      :name="thread.name"
+      :createdAt="thread.createdAt"
+      :user="thread.userId"
+    />
 
-    <main>
-      <!-- TODO: delete v-if + v-for // userId into username -->
-      <ThreadInformations
-        v-for="thread in threads"
-        v-if="thread._id === $route.params.threadId"
-        :key="thread._id"
-        :name="thread.name"
-        :createdAt="thread.createdAt"
-        :user="thread.userId"
+    <!-- TODO: delete v-if + v-for -->
+    <div id="threads">
+      <Message
+        v-for="message in messages"
+        v-if="message.threadId === $route.params.threadId"
+        :key="message._id"
+        :subject="message.subject"
+        :createdAt="message.createdAt"
+        :userId="message.userId"
+        :messageId="message._id"
       />
-
-      <!-- TODO: delete v-if + v-for -->
-      <div id="threads">
-        <Message
-          v-for="message in messages"
-          v-if="message.threadId === $route.params.threadId"
-          :key="message._id"
-          :subject="message.subject"
-          :createdAt="message.createdAt"
-          :userId="message.userId"
-          :messageId="message._id"
-        />
-      </div>
-    </main>
-  </div>
+    </div>
+  </main>
 </template>
 
 <script>
-import Layout from '@/components/layout';
 import Message from '@/components/message';
 import ThreadInformations from '@/components/threadInformations';
 
 export default {
-  name: 'Thread',
-  components: { Layout, Message, ThreadInformations },
+  name: 'ThreadsList',
+  components: { Message, ThreadInformations },
   data() {
     return {
       messages: [
@@ -111,27 +106,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.threads {
-  background-color: rgba(44, 61, 85, 0.05);
-  padding-top: 75px;
-  @media screen and (min-width: 992px) {
-    display: grid;
-    grid-template-columns: 350px 1fr;
-    grid-template-rows: 75px 1fr;
-    grid-template-areas:
-      'header header'
-      'sidebar main';
-    max-height: 100vh;
-    padding-top: 0;
-  }
-}
-
-#threads {
-  @media screen and(min-width: 992px) {
-    //margin-left: 350px;
-  }
-}
-
 main {
   @media screen and (min-width: 992px) {
     grid-area: main;

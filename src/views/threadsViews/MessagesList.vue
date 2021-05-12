@@ -1,66 +1,61 @@
 <template>
-  <div class="messages">
-    <Layout />
+  <main>
+    <!-- TODO: delete v-if + v-for -->
+    <div id="informations-bar">
+      <MessageInformations
+        v-for="message in messages"
+        v-if="message._id === $route.params.messageId"
+        :key="message._id"
+        :userId="message.userId"
+        :subject="message.subject"
+        :createdAt="message.createdAt"
+      />
+    </div>
 
-    <main>
-      <!-- TODO: delete v-if + v-for -->
-      <div id="informations-bar">
-        <MessageInformations
+    <!-- TODO: delete v-if + v-for -->
+    <div id="post-line">
+      <div id="user-text-post">
+        <Message
           v-for="message in messages"
           v-if="message._id === $route.params.messageId"
           :key="message._id"
-          :userId="message.userId"
-          :subject="message.subject"
-          :createdAt="message.createdAt"
+          :message="message.message"
         />
-      </div>
-
-      <!-- TODO: delete v-if + v-for -->
-      <div id="post-line">
-        <div id="user-text-post">
-          <Message
-            v-for="message in messages"
-            v-if="message._id === $route.params.messageId"
-            :key="message._id"
-            :message="message.message"
-          />
-          <span class="separation-line"></span>
-          <div id="buttons">
-            <div class="reply-btn button">Répondre</div>
-            <div class="like-btn button">Like</div>
-            <div class="dislike-btn button">Dislike</div>
-          </div>
-        </div>
-        <div id="comments">
-          <div class="post-comment">
-            <div class="comment-infos">
-              <div class="profile-picture"></div>
-              <p>Écrit par u/Jo_SMNK • 03/11/2021</p>
-            </div>
-            <p class="comment-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit
-              aliquam pharetra, mi scelerisque. Sed mattis arcu aliquam, turpis
-              euismod urna. Montes, molestie non fusce libero tincidunt laoreet.
-              Gravida interdum ullamcorper nisi quam sapien. Mi lorem morbi
-              consectetur dictum sollicitudin egestas nec enim. Enim ultricies
-              enim, eu justo mauris, amet. Urna tellus hac diam facilisi a.
-              Augue varius phasellus risus enim.
-            </p>
-          </div>
+        <span class="separation-line"></span>
+        <div id="buttons">
+          <div class="reply-btn button">Répondre</div>
+          <div class="like-btn button">Like</div>
+          <div class="dislike-btn button">Dislike</div>
         </div>
       </div>
-    </main>
-  </div>
+      <div id="comments">
+        <div class="post-comment">
+          <div class="comment-infos">
+            <div class="profile-picture"></div>
+            <p>Écrit par u/Jo_SMNK • 03/11/2021</p>
+          </div>
+          <p class="comment-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit aliquam
+            pharetra, mi scelerisque. Sed mattis arcu aliquam, turpis euismod
+            urna. Montes, molestie non fusce libero tincidunt laoreet. Gravida
+            interdum ullamcorper nisi quam sapien. Mi lorem morbi consectetur
+            dictum sollicitudin egestas nec enim. Enim ultricies enim, eu justo
+            mauris, amet. Urna tellus hac diam facilisi a. Augue varius
+            phasellus risus enim.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
 </template>
 
 <script>
-import Layout from '@/components/layout';
 import Message from '@/components/inMessage';
 import MessageInformations from '@/components/messageInformations';
 
 export default {
   name: 'Messages',
-  components: { Layout, Message, MessageInformations },
+  components: { Message, MessageInformations },
   data() {
     return {
       messages: [
@@ -98,40 +93,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.messages {
-  background-color: rgba(44, 61, 85, 0.05);
-  padding-top: 75px;
+main {
   @media screen and (min-width: 992px) {
-    display: grid;
-    grid-template-columns: 350px 1fr;
-    grid-template-rows: 75px 1fr;
-    grid-template-areas:
-      'header header'
-      'sidebar main';
-    max-height: 100vh;
-    padding-top: 0;
-  }
-}
-
-/* Informations Bar */
-#informations-bar {
-  background: $light-blue;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  @media screen and(min-width: 992px) {
-    //margin-left: 350px;
+    grid-area: main;
+    overflow-y: scroll;
   }
 
-  p {
-    color: #fff;
-    line-height: 1.3em;
-    margin: 0 10px;
+  /* Informations Bar */
+  #informations-bar {
+    background: $light-blue;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    &:nth-child(2) {
-      text-align: right;
+    @media screen and(min-width: 992px) {
+      //margin-left: 350px;
+    }
+
+    p {
+      color: #fff;
+      line-height: 1.3em;
+      margin: 0 10px;
+
+      &:nth-child(2) {
+        text-align: right;
+      }
     }
   }
 }
@@ -229,13 +216,6 @@ export default {
       margin: 10px;
       text-align: justify;
     }
-  }
-}
-
-main {
-  @media screen and (min-width: 992px) {
-    grid-area: main;
-    overflow-y: scroll;
   }
 }
 </style>

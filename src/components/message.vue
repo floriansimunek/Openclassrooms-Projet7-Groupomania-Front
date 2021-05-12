@@ -1,5 +1,13 @@
 <template>
-  <a :href="`/message/${messageId}`">
+  <router-link
+    :to="{
+      name: 'MessagesList',
+      params: {
+        threadId: $route.params.threadId,
+        messageId,
+      },
+    }"
+  >
     <div class="messageInThread">
       <p>
         Sujet : {{ subject }}<br />
@@ -15,7 +23,7 @@
         {{ commentCount }} commentaires
       </p>
     </div>
-  </a>
+  </router-link>
 </template>
 
 <script>

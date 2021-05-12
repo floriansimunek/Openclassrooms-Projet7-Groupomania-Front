@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
-import Thread from '../views/Thread.vue';
-import Message from '../views/Message.vue';
+import Thread from '../views/threadsViews/Thread.vue';
+import MessagesList from '../views/threadsViews/MessagesList.vue';
+import ThreadsList from '../views/threadsViews/ThreadsList.vue';
 
 Vue.use(VueRouter);
 
@@ -14,13 +15,19 @@ const routes = [
   },
   {
     path: '/thread/:threadId',
-    name: 'Thread',
     component: Thread,
-  },
-  {
-    path: '/message/:messageId',
-    name: 'Message',
-    component: Message,
+    children: [
+      {
+        path: '',
+        component: ThreadsList,
+        name: 'ThreadsList',
+      },
+      {
+        path: 'message/:messageId',
+        component: MessagesList,
+        name: 'MessagesList',
+      },
+    ],
   },
 ];
 

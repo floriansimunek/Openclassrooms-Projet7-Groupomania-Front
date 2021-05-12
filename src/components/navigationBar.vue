@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Thread from '@/components/thread';
 
 export default {
@@ -27,44 +28,25 @@ export default {
   components: { Thread },
   data() {
     return {
-      threads: [
-        {
-          _id: '6097af4e361f6831c48d7a83',
-          userId: '6097af4a361f6831c48d7a82',
-          name: 'Thread name',
-          description: 'Thread description blablablablablablabla',
-          createdAt: '2021-05-09T09:45:50.224Z',
-        },
-        {
-          _id: '6097d2472d6ac23b78fb91c5',
-          userId: '6097af4a361f6831c48d7a82',
-          name: 'Thread name 2',
-          description: 'Thread description blablablablablablabla',
-          createdAt: '2021-05-09T12:15:03.018Z',
-        },
-        {
-          _id: '6097d24a2d6ac23b78fb91c6',
-          userId: '6097af4a361f6831c48d7a82',
-          name: 'Thread name 3',
-          description: 'Thread description blablablablablablabla',
-          createdAt: '2021-05-09T12:15:06.244Z',
-        },
-        {
-          _id: '6097d24d2d6ac23b78fb91c7',
-          userId: '6097af4a361f6831c48d7a82',
-          name: 'Thread name 4',
-          description: 'Thread description blablablablablablabla',
-          createdAt: '2021-05-09T12:15:09.437Z',
-        },
-        {
-          _id: '6097d2502d6ac23b78fb91c8',
-          userId: '6097af4a361f6831c48d7a82',
-          name: 'Thread name 5',
-          description: 'Thread description blablablablablablabla',
-          createdAt: '2021-05-09T12:15:12.180Z',
-        },
-      ],
+      threads: [],
     };
+  },
+  created() {
+    this.fetchThreads();
+  },
+  methods: {
+    fetchThreads() {
+      axios({
+        method: 'get',
+        url: 'http://localhost:3000/api/thread',
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDk3YWY0YTM2MWY2ODMxYzQ4ZDdhODIiLCJpYXQiOjE2MjA4MDc0NjgsImV4cCI6MTYyMDg5Mzg2OH0.Etrngr5ZT5p-foocf65BT3ji68_Q8Apay6vOPMjlRpY',
+        },
+      }).then(({ data }) => {
+        this.threads = data;
+      });
+    },
   },
 };
 </script>
