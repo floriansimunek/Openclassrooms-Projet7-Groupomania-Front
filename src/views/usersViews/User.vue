@@ -1,41 +1,16 @@
 <template>
-  <div class="login-form">
-    <header>
-      <h1>Groupomania</h1>
-    </header>
-    <div class="user-system">
-      <div class="user-system-form">
-        <h2>Connexion</h2>
-        <form action="" method="post">
-          <div class="user-system-inputs">
-            <input type="text" name="mail" placeholder="Email" />
-            <input type="text" name="password" placeholder="Mot de passe" />
-          </div>
-          <div class="user-system-buttons">
-            <input
-              class="user-system-buttons-register"
-              type="submit"
-              value="S'inscrire"
-            />
-            <input
-              class="user-system-buttons-user-system"
-              type="submit"
-              value="Se connecter"
-            />
-          </div>
-        </form>
-      </div>
-    </div>
+  <div class="users">
+    <router-view />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Login',
+  name: 'User',
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 /* Header */
 header {
   background-color: $darker-blue;
