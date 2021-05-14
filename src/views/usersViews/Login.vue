@@ -72,12 +72,17 @@ export default {
         method: 'post',
         url: `http://localhost:3000/api/user/login`,
         data: this.user,
-      }).then(({ data }) => {
-        console.log(data.userId);
-        localStorage.setItem('userId', data.userId);
-        console.log(data.accessToken);
-        localStorage.setItem('Token', data.accessToken);
-      });
+      })
+        .then(({ data }) => {
+          localStorage.setItem('userId', data.userId);
+          localStorage.setItem('Token', data.accessToken);
+          this.$router.push('/');
+        })
+        .catch((error) => {
+          console.log(
+            error.response.status + ' - ' + error.response.data.error,
+          );
+        });
     },
   },
 };

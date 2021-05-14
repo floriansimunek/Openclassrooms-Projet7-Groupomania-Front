@@ -87,10 +87,16 @@ export default {
         method: 'post',
         url: `http://localhost:3000/api/user/register`,
         data: this.user,
-      }).then(({ data }) => {
-        localStorage.setItem('userId', data.userId);
-        localStorage.setItem('Token', data.accessToken);
-      });
+      })
+        .then(({ data }) => {
+          localStorage.setItem('userId', data.userId);
+          localStorage.setItem('Token', data.accessToken);
+        })
+        .catch((error) => {
+          console.log(
+            error.response.status + ' - ' + error.response.data.error,
+          );
+        });
     },
   },
 };
