@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import Login from '../views/Login.vue';
+import Register from '../views/Register.vue';
 import Home from '../views/Home.vue';
 import Thread from '../views/threadsViews/Thread.vue';
 import MessagesList from '../views/threadsViews/MessagesList.vue';
@@ -8,6 +10,16 @@ import ThreadsList from '../views/threadsViews/ThreadsList.vue';
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
+  },
   {
     path: '/',
     name: 'Home',

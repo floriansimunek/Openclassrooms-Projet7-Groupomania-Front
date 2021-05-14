@@ -41,7 +41,7 @@ export default {
         url: 'http://localhost:3000/api/thread',
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDk3YWY0YTM2MWY2ODMxYzQ4ZDdhODIiLCJpYXQiOjE2MjA4MDc0NjgsImV4cCI6MTYyMDg5Mzg2OH0.Etrngr5ZT5p-foocf65BT3ji68_Q8Apay6vOPMjlRpY',
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDliZGFlNjI3YzA1MDMzYzRlYjUwYmUiLCJpYXQiOjE2MjA5OTc3MzUsImV4cCI6MTYyMTA4NDEzNX0.OYfrIovCdc2odU4jxCQqee98m8VpLsV5mtYscsy8jos',
         },
       }).then(({ data }) => {
         this.threads = data;
