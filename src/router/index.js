@@ -12,7 +12,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/user',
+    path: '/user/api/login',
     component: User,
     children: [
       {
@@ -21,7 +21,7 @@ const routes = [
         component: Login,
       },
       {
-        path: '/register',
+        path: '/user/api/register',
         name: 'Register',
         component: Register,
       },

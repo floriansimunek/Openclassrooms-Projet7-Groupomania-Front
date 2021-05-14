@@ -78,7 +78,8 @@ header {
   }
 
   &-buttons {
-    input {
+    input,
+    p {
       width: 20%;
       height: 30px;
       color: white;
@@ -86,6 +87,7 @@ header {
       border-radius: 2px;
       margin: 0 5px;
       font-size: 18px;
+      text-decoration: none;
     }
 
     &-user-system {

@@ -8,8 +8,20 @@
         <h2>Connexion</h2>
         <form action="" method="post">
           <div class="user-system-inputs">
-            <input type="text" name="mail" placeholder="Email" />
-            <input type="text" name="password" placeholder="Mot de passe" />
+            <input
+              type="text"
+              name="email"
+              placeholder="Email"
+              ref="userEmail"
+              v-on:change="getUserInputValue()"
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Mot de passe"
+              ref="userPassword"
+              v-on:change="getUserInputValue()"
+            />
           </div>
           <div class="user-system-buttons">
             <router-link
@@ -25,8 +37,9 @@
             </router-link>
             <input
               class="user-system-buttons-user-system"
-              type="submit"
               value="Se connecter"
+              type="button"
+              v-on:click="loginUser()"
             />
           </div>
         </form>
@@ -36,7 +49,32 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'Login',
+  data() {
+    return {
+      user: {
+        email: '',
+        password: '',
+      },
+    };
+  },
+  methods: {
+    getUserInputValue() {
+      this.user.email = this.$refs.userEmail.value;
+      this.user.password = this.$refs.userPassword.value;
+    },
+    loginUser() {
+      axios({
+        method: 'post',
+        url: `http://localhost:3000/api/user/login`,
+        data: this.user,
+      }).then(({ data }) => {
+        console.log(data);
+      });
+    },
+  },
 };
 </script>
