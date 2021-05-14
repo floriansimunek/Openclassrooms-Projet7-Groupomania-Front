@@ -8,6 +8,7 @@
         <h2>Connexion</h2>
         <form action="" method="post">
           <div class="user-system-inputs">
+            <!-- TODO: @change on parent ? -->
             <input
               type="text"
               name="email"
@@ -72,7 +73,10 @@ export default {
         url: `http://localhost:3000/api/user/login`,
         data: this.user,
       }).then(({ data }) => {
-        console.log(data);
+        console.log(data.userId);
+        localStorage.setItem('userId', data.userId);
+        console.log(data.accessToken);
+        localStorage.setItem('Token', data.accessToken);
       });
     },
   },

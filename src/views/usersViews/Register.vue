@@ -88,7 +88,8 @@ export default {
         url: `http://localhost:3000/api/user/register`,
         data: this.user,
       }).then(({ data }) => {
-        console.log(data);
+        localStorage.setItem('userId', data.userId);
+        localStorage.setItem('Token', data.accessToken);
       });
     },
   },
