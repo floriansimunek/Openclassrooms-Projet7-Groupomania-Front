@@ -6,6 +6,7 @@
         <span id="connection-state"></span>
       </p>
     </div>
+    <div class="logout-btn" v-on:click="userLogout()">Déconnexion</div>
     <span class="separation-line"></span>
     <ul id="favs">
       <p>Favoris</p>
@@ -48,11 +49,17 @@ export default {
           this.threads = data;
         })
         .catch((error) => {
+          // TODO: if(error) ?
           if (error.response.status === 401) {
             console.log(error.response.data.error.message);
             this.$router.push('/api/user/login');
           }
         });
+    },
+    userLogout() {
+      localStorage.removeItem('Token');
+      localStorage.removeItem('userId');
+      this.$router.push('/api/user/login');
     },
   },
 };
@@ -112,5 +119,13 @@ export default {
       }
     }
   }
+}
+
+.separation-line {
+  display: block;
+  margin: 0 auto;
+  width: 80%;
+  height: 1px;
+  background-color: $light-blue;
 }
 </style>
