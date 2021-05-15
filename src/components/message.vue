@@ -11,7 +11,7 @@
     <div class="messageInThread">
       <p>
         Sujet : {{ subject }}<br />
-        Écrit par : {{ userId }} •
+        Écrit par : {{ username }} •
         {{
           new Date(Date.parse(createdAt))
             .toLocaleDateString('fr', {
@@ -34,8 +34,7 @@ export default {
       type: String,
       required: true,
     },
-    // TODO: Print user.name à la place de userId
-    userId: {
+    username: {
       type: String,
       required: true,
     },

@@ -88,14 +88,25 @@ header {
       margin: 0 5px;
       font-size: 18px;
       text-decoration: none;
+      transition: all 0.5s ease;
     }
 
     &-user-system {
       background: #03c946;
+      &:hover {
+        cursor: pointer;
+        background: white;
+        color: #03c946;
+      }
     }
 
     &-register {
       background: $darker-blue;
+      &:hover {
+        cursor: pointer;
+        background: white;
+        color: $darker-blue;
+      }
     }
   }
 }

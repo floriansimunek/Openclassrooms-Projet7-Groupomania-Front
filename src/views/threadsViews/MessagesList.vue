@@ -3,7 +3,7 @@
     <div id="informations-bar">
       <MessageInformations
         :key="message._id"
-        :username="message.userId"
+        :username="user.username"
         :subject="message.subject"
         :createdAt="message.createdAt"
       />
@@ -51,6 +51,7 @@ export default {
   data() {
     return {
       message: [],
+      user: [],
     };
   },
   created() {
@@ -70,6 +71,16 @@ export default {
       })
         .then(({ data }) => {
           this.message = data;
+
+          axios({
+            method: 'get',
+            url: `http://localhost:3000/api/user/${this.message.userId}`,
+            headers: {
+              Authorization: Token,
+            },
+          }).then(({ data }) => {
+            this.user = data;
+          });
         })
         .catch((error) => {
           if (error.response.status === 401) {

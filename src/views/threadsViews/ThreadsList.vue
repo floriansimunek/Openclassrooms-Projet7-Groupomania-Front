@@ -1,11 +1,10 @@
 <template>
   <main v-if="this.thread._id">
-    <!-- TODO: userId into username -->
     <ThreadInformations
       :key="thread._id"
       :name="thread.name"
       :createdAt="thread.createdAt"
-      :user="thread.userId"
+      :user="user.username"
     />
 
     <div id="threads">
@@ -14,7 +13,7 @@
         :key="message._id"
         :subject="message.subject"
         :createdAt="message.createdAt"
-        :userId="message.userId"
+        :username="user.username"
         :messageId="message._id"
       />
     </div>
@@ -33,6 +32,7 @@ export default {
     return {
       messages: [],
       thread: [],
+      user: [],
     };
   },
   created() {
@@ -51,6 +51,16 @@ export default {
         },
       }).then(({ data }) => {
         this.thread = data;
+
+        axios({
+          method: 'get',
+          url: `http://localhost:3000/api/user/${this.thread.userId}`,
+          headers: {
+            Authorization: Token,
+          },
+        }).then(({ data }) => {
+          this.user = data;
+        });
       });
     },
     fetchMessages() {
