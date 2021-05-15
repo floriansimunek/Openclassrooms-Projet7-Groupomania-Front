@@ -67,9 +67,16 @@ export default {
         headers: {
           Authorization: Token,
         },
-      }).then(({ data }) => {
-        this.message = data;
-      });
+      })
+        .then(({ data }) => {
+          this.message = data;
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            console.log(error.response.data.error.message);
+            this.$router.push('/api/user/login');
+          }
+        });
     },
   },
 };
