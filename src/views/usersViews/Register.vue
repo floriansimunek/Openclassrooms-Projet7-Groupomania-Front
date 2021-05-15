@@ -8,8 +8,8 @@
       <div class="user-system-form">
         <h2>S'inscrire</h2>
         <form action="" method="post">
-          <!-- TODO: @change on parent ? -->
           <div class="user-system-inputs">
+            <!-- TODO: ref -> v-model -->
             <input
               type="text"
               name="username"
@@ -76,6 +76,7 @@ export default {
     };
   },
   methods: {
+    // TODO: delete
     getUserInputValue() {
       this.user.username = this.$refs.userUsername.value;
       this.user.email = this.$refs.userEmail.value;

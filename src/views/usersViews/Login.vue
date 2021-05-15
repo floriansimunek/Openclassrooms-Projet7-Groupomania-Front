@@ -8,20 +8,19 @@
         <h2>Connexion</h2>
         <form action="" method="post">
           <div class="user-system-inputs">
-            <!-- TODO: @change on parent ? -->
             <input
               type="text"
               name="email"
               placeholder="Email"
               ref="userEmail"
-              v-on:change="getUserInputValue()"
+              v-model="user.email"
             />
             <input
               type="password"
               name="password"
               placeholder="Mot de passe"
               ref="userPassword"
-              v-on:change="getUserInputValue()"
+              v-model="user.password"
             />
           </div>
           <div class="user-system-buttons">
@@ -63,10 +62,6 @@ export default {
     };
   },
   methods: {
-    getUserInputValue() {
-      this.user.email = this.$refs.userEmail.value;
-      this.user.password = this.$refs.userPassword.value;
-    },
     loginUser() {
       axios({
         method: 'post',

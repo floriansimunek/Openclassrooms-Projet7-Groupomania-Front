@@ -1,6 +1,6 @@
 <template>
   <div id="informations-bar">
-    <p>{{ name }}<br />Créé par : {{ user }}</p>
+    <p>{{ name }}<br />Créé par : {{ username }}</p>
     <p>
       {{
         new Date(Date.parse(createdAt))
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'messageInformations',
+  name: 'threadInformations',
   props: {
     name: {
       type: String,
@@ -26,7 +26,7 @@ export default {
       type: String,
       required: true,
     },
-    user: {
+    username: {
       type: String,
       required: true,
     },

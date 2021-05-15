@@ -1,13 +1,17 @@
 <template>
   <main v-if="this.thread._id">
-    <ThreadInformations
-      :key="thread._id"
-      :name="thread.name"
-      :createdAt="thread.createdAt"
-      :user="user.username"
-    />
+    <!--  TODO: v-if ? -->
+    <div v-if="this.user.username">
+      <ThreadInformations
+        :key="thread._id"
+        :name="thread.name"
+        :createdAt="thread.createdAt"
+        :username="user.username"
+      />
+    </div>
 
-    <div id="threads">
+    <!--  TODO: v-if ? -->
+    <div id="messages" v-if="this.user.username">
       <Message
         v-for="message in messages"
         :key="message._id"

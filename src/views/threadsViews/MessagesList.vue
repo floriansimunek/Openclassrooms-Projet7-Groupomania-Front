@@ -1,6 +1,6 @@
 <template>
   <main v-if="this.message._id">
-    <div id="informations-bar">
+    <div id="informations-bar" v-if="this.user.username">
       <MessageInformations
         :key="message._id"
         :username="user.username"

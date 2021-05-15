@@ -6,10 +6,10 @@
         <span id="connection-state"></span>
       </p>
     </div>
-    <div class="logout-btn" v-on:click="userLogout()">Déconnexion</div>
+    <div class="btn btn-logout" v-on:click="userLogout()">Déconnexion</div>
     <span class="separation-line"></span>
     <ul id="favs">
-      <p>Favoris</p>
+      <p>Threads</p>
       <Thread
         v-for="thread in threads"
         :key="thread._id"
@@ -57,6 +57,7 @@ export default {
         });
     },
     userLogout() {
+      // TODO: route /login
       localStorage.removeItem('Token');
       localStorage.removeItem('userId');
       this.$router.push('/api/user/login');
@@ -121,23 +122,25 @@ export default {
   }
 }
 
-.logout-btn {
-  background: $darker-blue;
-  width: 50%;
-  color: #ff4747;
-  border: none;
-  border-radius: 3px;
-  font-size: 16px;
-  margin: 10px auto;
-  padding: 7px 0;
-  text-align: center;
-  transition: all 0.5s ease;
+.btn {
+  &-logout {
+    background: $darker-blue;
+    width: 50%;
+    color: #ff4747;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    margin: 10px auto;
+    padding: 7px 0;
+    text-align: center;
+    transition: all 0.5s ease;
 
-  &:hover {
-    cursor: pointer;
-    background: #ff4747;
-    opacity: 0.5;
-    color: $darker-blue;
+    &:hover {
+      cursor: pointer;
+      background: #ff4747;
+      opacity: 0.5;
+      color: $darker-blue;
+    }
   }
 }
 
