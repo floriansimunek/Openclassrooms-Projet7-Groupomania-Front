@@ -121,6 +121,26 @@ export default {
   }
 }
 
+.logout-btn {
+  background: $darker-blue;
+  width: 50%;
+  color: #ff4747;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+  margin: 10px auto;
+  padding: 7px 0;
+  text-align: center;
+  transition: all 0.5s ease;
+
+  &:hover {
+    cursor: pointer;
+    background: #ff4747;
+    opacity: 0.5;
+    color: $darker-blue;
+  }
+}
+
 .separation-line {
   display: block;
   margin: 0 auto;
