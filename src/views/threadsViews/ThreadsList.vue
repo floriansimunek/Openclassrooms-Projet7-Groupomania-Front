@@ -42,11 +42,12 @@ export default {
   methods: {
     fetchThread() {
       let threadId = this.$route.params.threadId;
+      let Token = 'Bearer ' + localStorage.getItem('Token');
       axios({
         method: 'get',
         url: `http://localhost:3000/api/thread/${threadId}`,
         headers: {
-          Authorization: localStorage.getItem('accessToken'),
+          Authorization: Token,
         },
       }).then(({ data }) => {
         this.thread = data;
