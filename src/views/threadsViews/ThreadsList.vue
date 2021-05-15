@@ -46,8 +46,7 @@ export default {
         method: 'get',
         url: `http://localhost:3000/api/thread/${threadId}`,
         headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDliZGFlNjI3YzA1MDMzYzRlYjUwYmUiLCJpYXQiOjE2MjA5OTc3MzUsImV4cCI6MTYyMTA4NDEzNX0.OYfrIovCdc2odU4jxCQqee98m8VpLsV5mtYscsy8jos',
+          Authorization: localStorage.getItem('accessToken'),
         },
       }).then(({ data }) => {
         this.thread = data;
@@ -55,12 +54,12 @@ export default {
     },
     fetchMessages() {
       let threadId = this.$route.params.threadId;
+      let Token = 'Bearer ' + localStorage.getItem('Token');
       axios({
         method: 'get',
         url: `http://localhost:3000/api/thread/${threadId}/message`,
         headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDliZGFlNjI3YzA1MDMzYzRlYjUwYmUiLCJpYXQiOjE2MjA5OTc3MzUsImV4cCI6MTYyMTA4NDEzNX0.OYfrIovCdc2odU4jxCQqee98m8VpLsV5mtYscsy8jos',
+          Authorization: Token,
         },
       }).then(({ data }) => {
         this.messages = data;

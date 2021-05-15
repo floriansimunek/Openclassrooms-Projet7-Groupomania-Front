@@ -60,12 +60,12 @@ export default {
     fetchMessage() {
       let threadId = this.$route.params.threadId;
       let messageId = this.$route.params.messageId;
+      let Token = 'Bearer ' + localStorage.getItem('Token');
       axios({
         method: 'get',
         url: `http://localhost:3000/api/thread/${threadId}/message/${messageId}`,
         headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDliZGFlNjI3YzA1MDMzYzRlYjUwYmUiLCJpYXQiOjE2MjA5OTc3MzUsImV4cCI6MTYyMTA4NDEzNX0.OYfrIovCdc2odU4jxCQqee98m8VpLsV5mtYscsy8jos',
+          Authorization: Token,
         },
       }).then(({ data }) => {
         this.message = data;
