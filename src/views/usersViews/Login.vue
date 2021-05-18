@@ -21,6 +21,7 @@
               v-model="user.password"
             />
           </div>
+          {{ error }}
           <div class="user-system-buttons">
             <router-link
               :to="{
@@ -57,6 +58,7 @@ export default {
         email: '',
         password: '',
       },
+      error: '',
     };
   },
   methods: {
@@ -71,10 +73,10 @@ export default {
           localStorage.setItem('Token', data.accessToken);
           this.$router.push('/');
         })
+        // TODO: .error ?
         .catch((error) => {
-          console.log(
-            error.response.status + ' - ' + error.response.data.error,
-          );
+          this.error =
+            error.response.status + ' - ' + error.response.data.error;
         });
     },
   },
@@ -160,6 +162,7 @@ header {
       font-size: 18px;
       text-decoration: none;
       transition: all 0.5s ease;
+      margin-top: 10px;
     }
 
     &-user-system {

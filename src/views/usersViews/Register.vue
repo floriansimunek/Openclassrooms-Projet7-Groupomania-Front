@@ -34,6 +34,7 @@
               v-model="user.confirmPassword"
             />
           </div>
+          {{ error }}
           <div class="user-system-buttons">
             <router-link :to="{ name: 'Login' }">
               <input
@@ -68,6 +69,7 @@ export default {
         password: '',
         confirmPassword: '',
       },
+      error: '',
     };
   },
   methods: {
@@ -82,10 +84,10 @@ export default {
           localStorage.setItem('Token', data.accessToken);
           this.$router.push('/');
         })
+        // TODO: .message ?
         .catch((error) => {
-          console.log(
-            error.response.status + ' - ' + error.response.data.error,
-          );
+          this.error =
+            error.response.status + ' - ' + error.response.data.message;
         });
     },
   },
