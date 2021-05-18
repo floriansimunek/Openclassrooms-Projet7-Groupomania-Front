@@ -9,34 +9,29 @@
         <h2>S'inscrire</h2>
         <form action="" method="post">
           <div class="user-system-inputs">
-            <!-- TODO: ref -> v-model -->
             <input
               type="text"
               name="username"
               placeholder="Nom d'utilisateur"
-              ref="userUsername"
-              v-on:change="getUserInputValue()"
+              v-model="user.username"
             />
             <input
               type="text"
               name="mail"
               placeholder="Email"
-              ref="userEmail"
-              v-on:change="getUserInputValue()"
+              v-model="user.email"
             />
             <input
               type="password"
               name="password"
               placeholder="Mot de passe"
-              ref="userPassword"
-              v-on:change="getUserInputValue()"
+              v-model="user.password"
             />
             <input
               type="password"
               name="confirmPassword"
               placeholder="Confirmation mot de passe"
-              ref="userConfirmPassword"
-              v-on:change="getUserInputValue()"
+              v-model="user.confirmPassword"
             />
           </div>
           <div class="user-system-buttons">
@@ -76,13 +71,6 @@ export default {
     };
   },
   methods: {
-    // TODO: delete
-    getUserInputValue() {
-      this.user.username = this.$refs.userUsername.value;
-      this.user.email = this.$refs.userEmail.value;
-      this.user.password = this.$refs.userPassword.value;
-      this.user.confirmPassword = this.$refs.userConfirmPassword.value;
-    },
     registerUser() {
       axios({
         method: 'post',
