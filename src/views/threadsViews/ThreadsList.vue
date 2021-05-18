@@ -9,7 +9,7 @@
       />
     </div>
 
-    <div class="addMessageBtn" id="myBtn" v-on:click="openMessageCreation()">
+    <div class="addMessageBtn" id="myBtn" v-on:click="messageCreation()">
       Créer un message
     </div>
 
@@ -123,7 +123,7 @@ export default {
         this.messages = data;
       });
     },
-    openMessageCreation() {
+    messageCreation() {
       let modal = document.getElementById('myModal'); // Get the modal
       let btn = document.getElementById('myBtn'); // Get the button that opens the modal
       let span = document.getElementsByClassName('close')[0]; // Get the <span> element that closes the modal
@@ -226,15 +226,14 @@ main {
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-}
 
-/* Modal Content/Box */
-.modal-content {
-  background-color: $darker-blue;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border-radius: 5px;
-  width: 50%; /* Could be more or less, depending on screen size */
+  &-content {
+    background-color: $darker-blue;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border-radius: 5px;
+    width: 50%; /* Could be more or less, depending on screen size */
+  }
 }
 
 /* Message Creation System Form */

@@ -7,7 +7,7 @@
         <div class="userProfile-informations">
           <strong>Nom d'utilisateur:</strong> {{ this.user.username }} <br />
           <strong>Adresse email:</strong> {{ this.user.email }} <br />
-          <strong>Création du compte :</strong>
+          <strong>Création du compte:</strong>
           {{
             new Date(Date.parse(this.user.createdAt))
               .toLocaleDateString('fr', {
@@ -19,15 +19,37 @@
         </div>
         <div class="userProfile-buttons">
           <input
-            type="text"
+            type="button"
             value="Supprimer le compte"
             class="btn btn-delete"
+            id="deleteUserBtn"
+            v-on:click="deleteUserConfirmation()"
           />
           <input
-            type="text"
+            type="button"
             value="Modifier les informations"
             class="btn btn-modify"
           />
+        </div>
+      </div>
+
+      <div id="deleteUserModal" class="modal modal-delete-user">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <div class="deleteUser-buttons">
+            <input
+              class="deleteUser-buttons__cancel"
+              id="deleteUserCancelBtn"
+              type="button"
+              value="Annuler"
+            />
+            <input
+              class="deleteUser-buttons__delete"
+              value="Supprimer"
+              type="button"
+              v-on:click="deleteUser()"
+            />
+          </div>
         </div>
       </div>
     </main>
@@ -60,6 +82,44 @@ export default {
         },
       }).then(({ data }) => {
         this.user = data;
+      });
+    },
+    deleteUserConfirmation() {
+      let modal = document.getElementById('deleteUserModal');
+      let btn = document.getElementById('deleteUserBtn');
+      let span = document.getElementsByClassName('close')[0];
+      let cancelBtn = document.getElementById('deleteUserCancelBtn');
+
+      btn.onclick = function () {
+        modal.style.display = 'block';
+      };
+
+      span.onclick = function () {
+        modal.style.display = 'none';
+      };
+      cancelBtn.onclick = function () {
+        modal.style.display = 'none';
+      };
+
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      };
+    },
+    deleteUser() {
+      let Token = 'Bearer ' + localStorage.getItem('Token');
+      let userId = localStorage.getItem('userId');
+      axios({
+        method: 'DELETE',
+        url: `http://localhost:3000/api/user/${userId}`,
+        headers: {
+          Authorization: Token,
+        },
+      }).then(() => {
+        localStorage.removeItem('Token');
+        localStorage.removeItem('userId');
+        this.$router.push('/login');
       });
     },
   },
@@ -116,7 +176,7 @@ main {
   background: $darker-blue;
   border-radius: 5px;
   width: 50%;
-  margin: 20% auto;
+  margin: 10% auto;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -153,6 +213,10 @@ main {
       margin-top: 10px;
       text-align: center;
 
+      &:hover {
+        cursor: pointer;
+      }
+
       &-delete {
         background: #ff4747;
       }
@@ -162,5 +226,78 @@ main {
       }
     }
   }
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+
+  &-content {
+    background-color: $darker-blue;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border-radius: 5px;
+    width: 50%; /* Could be more or less, depending on screen size */
+  }
+
+  .deleteUser-buttons {
+    color: white;
+    text-align: center;
+
+    input {
+      width: 20%;
+      height: 30px;
+      color: white;
+      border: none;
+      border-radius: 2px;
+      margin: 0 5px;
+      font-size: 18px;
+      text-decoration: none;
+      transition: all 0.5s ease;
+      margin-top: 10px;
+    }
+
+    &__cancel {
+      background: $light-blue;
+      &:hover {
+        cursor: pointer;
+        background: white;
+        color: $darker-blue;
+      }
+    }
+
+    &__delete {
+      background: #ff4747;
+      &:hover {
+        cursor: pointer;
+        background: white;
+        color: #ff4747;
+      }
+    }
+  }
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 </style>
