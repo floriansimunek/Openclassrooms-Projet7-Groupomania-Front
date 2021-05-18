@@ -31,6 +31,7 @@
               v-model="message.message"
             />
           </div>
+          {{ error }}
           <div class="messageCreation-buttons">
             <input
               class="messageCreation-buttons__cancel"
@@ -78,6 +79,7 @@ export default {
         subject: '',
         message: '',
       },
+      error: '',
     };
   },
   created() {
@@ -166,8 +168,10 @@ export default {
             modal.style.display = 'none';
           }
         })
+        // TODO: .error.message?
         .catch((error) => {
-          console.log(error);
+          this.error =
+            error.response.status + ' - ' + error.response.data.error.message;
         });
     },
   },
@@ -234,6 +238,9 @@ main {
 
 /* Message Creation System Form */
 .messageCreation {
+  color: white;
+  text-align: center;
+
   &-form {
     margin: 0 auto;
     text-align: center;
@@ -277,6 +284,7 @@ main {
       font-size: 18px;
       text-decoration: none;
       transition: all 0.5s ease;
+      margin-top: 10px;
     }
 
     &__cancel {
