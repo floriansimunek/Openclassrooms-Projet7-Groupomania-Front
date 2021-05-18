@@ -1,8 +1,8 @@
 <template>
   <div class="user-card">
-    <strong>Nom d'utilisateur:</strong> {{ username }} <br />
-    <strong>Adresse email:</strong> {{ email }} <br />
-    <strong>Création du compte:</strong>
+    <strong>Nom d'utilisateur:<br /></strong> {{ username }} <br /><br />
+    <strong>Adresse email:<br /></strong> {{ email }} <br /><br />
+    <strong>Création du compte:<br /></strong>
     {{
       new Date(Date.parse(createdAt))
         .toLocaleDateString('fr', {
@@ -34,8 +34,14 @@ export default {
 };
 </script>
 
-<style>
-.card-user {
+<style lang="scss" scoped>
+.user-card {
+  background: $darker-blue;
   color: white;
+  margin: 10px;
+  width: 18%;
+  height: 200px;
+  text-align: center;
+  padding-top: 20px;
 }
 </style>

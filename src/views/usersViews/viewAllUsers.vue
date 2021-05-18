@@ -42,7 +42,6 @@ export default {
         },
       }).then(({ data }) => {
         this.users = data;
-        console.log(this.users);
       });
     },
   },
@@ -96,7 +95,8 @@ main {
 }
 
 .viewAllUsers {
-  height: 30px;
-  background: red;
+  height: $screen-height-size;
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>
