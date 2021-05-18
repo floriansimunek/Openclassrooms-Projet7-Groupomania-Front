@@ -78,7 +78,7 @@ export default {
         data: this.user,
       })
         .then(({ data }) => {
-          localStorage.setItem('userId', data.userId);
+          localStorage.setItem('userId', data.user.userId);
           localStorage.setItem('Token', data.accessToken);
           this.$router.push('/');
         })
