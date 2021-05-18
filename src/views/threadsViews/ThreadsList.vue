@@ -16,7 +16,7 @@
     <div id="myModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
-        <form action="" method="post">
+        <form class="messageCreation" action="" method="post">
           <div class="messageCreation-inputs">
             <input
               type="text"
@@ -24,7 +24,7 @@
               placeholder="Sujet du message"
               v-model="message.subject"
             />
-            <input
+            <textarea
               type="text"
               name="message"
               placeholder="Votre message"
@@ -33,7 +33,12 @@
           </div>
           <div class="messageCreation-buttons">
             <input
-              class="messageCreation-buttons"
+              class="messageCreation-buttons__cancel"
+              type="button"
+              value="Annuler"
+            />
+            <input
+              class="messageCreation-buttons__create"
               value="Créer"
               type="button"
               v-on:click="createMessage()"
@@ -112,26 +117,14 @@ export default {
         headers: {
           Authorization: Token,
         },
-      })
-        .then(({ data }) => {
-          this.messages = data;
-        })
-        .catch((error) => {
-          if (error.response.status === 401) {
-            console.log(error.response.data.error.message);
-            this.$router.push('/api/user/login');
-          }
-        });
+      }).then(({ data }) => {
+        this.messages = data;
+      });
     },
     openMessageCreation() {
-      // Get the modal
-      let modal = document.getElementById('myModal');
-
-      // Get the button that opens the modal
-      let btn = document.getElementById('myBtn');
-
-      // Get the <span> element that closes the modal
-      let span = document.getElementsByClassName('close')[0];
+      let modal = document.getElementById('myModal'); // Get the modal
+      let btn = document.getElementById('myBtn'); // Get the button that opens the modal
+      let span = document.getElementsByClassName('close')[0]; // Get the <span> element that closes the modal
 
       // When the user clicks on the button, open the modal
       btn.onclick = function () {
@@ -165,7 +158,6 @@ export default {
           if (this.message.message && this.message.subject) {
             let modal = document.getElementById('myModal');
             modal.style.display = 'none';
-            this.$forceUpdate();
           }
         })
         .catch((error) => {
@@ -227,11 +219,78 @@ main {
 
 /* Modal Content/Box */
 .modal-content {
-  background-color: #fefefe;
+  background-color: $darker-blue;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  border-radius: 5px;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
+
+/* Message Creation System Form */
+.messageCreation {
+  &-form {
+    margin: 0 auto;
+    text-align: center;
+    width: 40%;
+  }
+
+  &-inputs {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+
+    input,
+    textarea {
+      height: 30px;
+      text-align: center;
+      margin: 5px auto;
+      width: 50%;
+      background: $light-blue;
+      border: none;
+      border-radius: 2px;
+      color: white;
+      font-size: 18px;
+    }
+
+    textarea {
+      height: 150px !important;
+    }
+  }
+
+  &-buttons {
+    text-align: center;
+
+    input,
+    p {
+      width: 20%;
+      height: 30px;
+      color: white;
+      border: none;
+      border-radius: 2px;
+      margin: 0 5px;
+      font-size: 18px;
+      text-decoration: none;
+      transition: all 0.5s ease;
+    }
+
+    &__cancel {
+      background: $light-blue;
+      &:hover {
+        cursor: pointer;
+        background: white;
+        color: $darker-blue;
+      }
+    }
+
+    &__create {
+      background: #03c946;
+      &:hover {
+        cursor: pointer;
+        background: white;
+        color: #03c946;
+      }
+    }
+  }
 }
 
 /* The Close Button */
