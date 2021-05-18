@@ -125,6 +125,9 @@ export default {
       let modal = document.getElementById('myModal'); // Get the modal
       let btn = document.getElementById('myBtn'); // Get the button that opens the modal
       let span = document.getElementsByClassName('close')[0]; // Get the <span> element that closes the modal
+      let cancelBtn = document.getElementsByClassName(
+        'messageCreation-buttons__cancel',
+      )[0];
 
       // When the user clicks on the button, open the modal
       btn.onclick = function () {
@@ -133,6 +136,9 @@ export default {
 
       // When the user clicks on <span> (x), close the modal
       span.onclick = function () {
+        modal.style.display = 'none';
+      };
+      cancelBtn.onclick = function () {
         modal.style.display = 'none';
       };
 
