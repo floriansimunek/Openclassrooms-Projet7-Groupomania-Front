@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Login from '@/views/usersViews/Login.vue';
 import Register from '@/views/usersViews/Register.vue';
 import UserProfile from '@/views/usersViews/UserProfile.vue';
+import viewAllUsers from '@/views/usersViews/viewAllUsers.vue';
 import Home from '@/views/Home.vue';
 import Thread from '@/views/threadsViews/Thread.vue';
 import MessagesList from '@/views/threadsViews/MessagesList.vue';
@@ -33,6 +34,14 @@ const routes = [
     path: '/me',
     name: 'UserProfile',
     component: UserProfile,
+    meta: {
+      auth: true,
+    },
+  },
+  {
+    path: '/user',
+    name: 'viewAllUsers',
+    component: viewAllUsers,
     meta: {
       auth: true,
     },
