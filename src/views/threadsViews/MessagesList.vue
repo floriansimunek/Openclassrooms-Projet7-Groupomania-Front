@@ -140,7 +140,7 @@ main {
 
     p {
       margin: 10px;
-      text-align: justify;
+      overflow-wrap: break-word;
     }
 
     .separation-line {
