@@ -44,23 +44,14 @@ export default {
         headers: {
           Authorization: Token,
         },
-      })
-        .then(({ data }) => {
-          this.threads = data;
-        })
-        .catch((error) => {
-          // TODO: if(error) ?
-          if (error.response.status === 401) {
-            console.log(error.response.data.error.message);
-            this.$router.push('/api/user/login');
-          }
-        });
+      }).then(({ data }) => {
+        this.threads = data;
+      });
     },
     userLogout() {
-      // TODO: route /login
       localStorage.removeItem('Token');
       localStorage.removeItem('userId');
-      this.$router.push('/api/user/login');
+      this.$router.push('/login');
     },
   },
 };

@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import User from '@/views/usersViews/User.vue';
 import Login from '@/views/usersViews/Login.vue';
 import Register from '@/views/usersViews/Register.vue';
 import Home from '@/views/Home.vue';
@@ -12,21 +11,14 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    // TODO: delete children
     path: '/login',
-    component: User,
-    children: [
-      {
-        path: '',
-        name: 'Login',
-        component: Login,
-      },
-      {
-        path: '/register',
-        name: 'Register',
-        component: Register,
-      },
-    ],
+    name: 'Login',
+    component: Login,
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
   },
   {
     path: '/',
