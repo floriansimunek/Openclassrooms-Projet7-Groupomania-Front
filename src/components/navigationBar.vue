@@ -1,14 +1,19 @@
 <template>
   <div id="navigation-bar">
     <UserInformations />
-    <!-- TODO: /me -->
-    <router-link
-      :to="{
-        name: 'UserProfile',
-      }"
-      ><div class="btn btn-profile">Profil</div>
-    </router-link>
-    <div class="btn btn-logout" v-on:click="userLogout()">Déconnexion</div>
+    <div class="buttons">
+      <router-link
+        :to="{
+          name: 'UserProfile',
+        }"
+        ><input class="btn btn-profile" value="Profil" />
+      </router-link>
+      <input
+        class="btn btn-logout"
+        value="Déconnexion"
+        v-on:click="userLogout()"
+      />
+    </div>
     <span class="separation-line"></span>
     <ul id="favs">
       <p>Threads</p>
@@ -102,45 +107,49 @@ export default {
   }
 }
 
-.btn {
-  width: 50%;
-  border: none;
-  border-radius: 3px;
-  font-size: 16px;
-  margin: 10px auto;
-  padding: 7px 0;
+.buttons {
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  background: $darker-blue;
-  transition: all 0.5s ease;
 
-  &:hover {
-    cursor: pointer;
-    opacity: 0.5;
-    color: $darker-blue;
-  }
-
-  &-logout {
-    color: #ff4747;
-    margin-bottom: 20px;
+  .btn {
+    width: 50%;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    padding: 7px 0;
+    margin: 5px auto;
+    text-align: center;
+    background: $darker-blue;
+    transition: all 0.5s ease;
 
     &:hover {
-      background: #ff4747;
+      cursor: pointer;
+      opacity: 0.5;
+      color: $darker-blue;
     }
-  }
 
-  &-profile {
-    color: white;
-    text-decoration: none;
+    &-logout {
+      color: #ff4747;
 
-    &:hover {
-      background: white;
+      &:hover {
+        background: #ff4747;
+      }
+    }
+
+    &-profile {
+      color: white;
+
+      &:hover {
+        background: white;
+      }
     }
   }
 }
 
 .separation-line {
   display: block;
-  margin: 0 auto;
+  margin: 20px auto;
   width: 80%;
   height: 1px;
   background-color: $light-blue;
