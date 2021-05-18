@@ -29,6 +29,8 @@
             type="button"
             value="Modifier les informations"
             class="btn btn-modify"
+            id="modifyUserBtn"
+            v-on:click="modifyUserPopup()"
           />
         </div>
       </div>
@@ -36,6 +38,9 @@
       <div id="deleteUserModal" class="modal modal-delete-user">
         <div class="modal-content">
           <span class="close">&times;</span>
+          <p class="confirmMessage">
+            Votre compte va être supprimé définitivement !
+          </p>
           <div class="deleteUser-buttons">
             <input
               class="deleteUser-buttons__cancel"
@@ -48,6 +53,38 @@
               value="Supprimer"
               type="button"
               v-on:click="deleteUser()"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div id="modifyUserModal" class="modal modal-modify-user">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <div class="modifyUser-inputs">
+            <p>Nom d'utilisateur</p>
+            <input type="text" v-model="user.username" />
+            <p>Email</p>
+            <input type="text" v-model="user.email" />
+            <p>Mot de passe</p>
+            <input type="password" v-model="user.password" />
+            <p>Confirmation mot de passe</p>
+            <input type="password" v-model="user.confirmPassword" />
+          </div>
+          <p id="error">{{ error }}</p>
+          <div class="modifyUser-buttons">
+            <input
+              class="modifyUser-buttons__cancel"
+              id="modifyUserCancelBtn"
+              type="button"
+              value="Annuler"
+            />
+            <input
+              class="modifyUser-buttons__modify"
+              value="Modifier"
+              id="userModifyConfirmBtn"
+              type="button"
+              v-on:click="modifyUser()"
             />
           </div>
         </div>
@@ -66,6 +103,7 @@ export default {
   data() {
     return {
       user: [],
+      error: '',
     };
   },
   created() {
@@ -121,6 +159,53 @@ export default {
         localStorage.removeItem('userId');
         this.$router.push('/login');
       });
+    },
+    modifyUserPopup() {
+      let modal = document.getElementById('modifyUserModal');
+      let btn = document.getElementById('modifyUserBtn');
+      let span = document.getElementsByClassName('close')[1];
+      let cancelBtn = document.getElementById('modifyUserCancelBtn');
+
+      btn.onclick = function () {
+        modal.style.display = 'block';
+      };
+
+      span.onclick = function () {
+        modal.style.display = 'none';
+      };
+      cancelBtn.onclick = function () {
+        modal.style.display = 'none';
+      };
+
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      };
+    },
+    modifyUser() {
+      let Token = 'Bearer ' + localStorage.getItem('Token');
+      let userId = localStorage.getItem('userId');
+
+      axios({
+        method: 'PUT',
+        url: `http://localhost:3000/api/user/${userId}`,
+        data: this.user,
+        headers: {
+          Authorization: Token,
+        },
+      })
+        .then(() => {
+          let btn = document.getElementById('userModifyConfirmBtn');
+          let modal = document.getElementById('modifyUserModal');
+          btn.onclick = function () {
+            modal.style.display = 'none';
+          };
+        })
+        .catch((error) => {
+          this.error =
+            error.response.status + ' - ' + error.response.data.message;
+        });
     },
   },
 };
@@ -218,11 +303,11 @@ main {
       }
 
       &-delete {
-        background: #ff4747;
+        background: $custom-red;
       }
 
       &-modify {
-        background: #03c946;
+        background: $custom-green;
       }
     }
   }
@@ -247,8 +332,35 @@ main {
     padding: 20px;
     border-radius: 5px;
     width: 50%; /* Could be more or less, depending on screen size */
+
+    .confirmMessage {
+      color: $custom-red;
+      font-size: 30px;
+      text-align: center;
+    }
   }
 
+  .modifyUser-inputs {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    color: white;
+    text-align: center;
+
+    input {
+      height: 30px;
+      color: white;
+      text-align: center;
+      margin: 5px auto;
+      width: 50%;
+      background: $light-blue;
+      border: none;
+      border-radius: 2px;
+      font-size: 18px;
+    }
+  }
+
+  .modifyUser-buttons,
   .deleteUser-buttons {
     color: white;
     text-align: center;
@@ -276,11 +388,20 @@ main {
     }
 
     &__delete {
-      background: #ff4747;
+      background: $custom-red;
       &:hover {
         cursor: pointer;
         background: white;
-        color: #ff4747;
+        color: $custom-red;
+      }
+    }
+
+    &__modify {
+      background: $custom-green;
+      &:hover {
+        cursor: pointer;
+        background: white;
+        color: $custom-green;
       }
     }
   }
@@ -299,5 +420,10 @@ main {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+#error {
+  color: white;
+  text-align: center;
 }
 </style>

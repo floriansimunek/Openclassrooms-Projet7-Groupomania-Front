@@ -130,10 +130,10 @@ export default {
     }
 
     &-logout {
-      color: #ff4747;
+      color: $custom-red;
 
       &:hover {
-        background: #ff4747;
+        background: $custom-red;
       }
     }
 

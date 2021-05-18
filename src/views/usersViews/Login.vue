@@ -166,11 +166,11 @@ header {
     }
 
     &-user-system {
-      background: #03c946;
+      background: $custom-green;
       &:hover {
         cursor: pointer;
         background: white;
-        color: #03c946;
+        color: $custom-green;
       }
     }
 

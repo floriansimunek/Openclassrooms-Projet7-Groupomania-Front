@@ -193,7 +193,7 @@ main {
 }
 
 .addMessageBtn {
-  background: #03c946;
+  background: $custom-green;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -210,7 +210,7 @@ main {
   &:hover {
     cursor: pointer;
     background: $light-blue;
-    color: #03c946;
+    color: $custom-green;
   }
 }
 
@@ -297,11 +297,11 @@ main {
     }
 
     &__create {
-      background: #03c946;
+      background: $custom-green;
       &:hover {
         cursor: pointer;
         background: white;
-        color: #03c946;
+        color: $custom-green;
       }
     }
   }

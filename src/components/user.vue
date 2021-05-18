@@ -47,7 +47,7 @@ export default {
     display: inline-block;
     width: 15px;
     height: 15px;
-    background: #03c946;
+    background: $custom-green;
     border-radius: 50%;
     transform: translate(0, 2px);
   }
