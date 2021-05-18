@@ -12,14 +12,12 @@
               type="text"
               name="email"
               placeholder="Email"
-              ref="userEmail"
               v-model="user.email"
             />
             <input
               type="password"
               name="password"
               placeholder="Mot de passe"
-              ref="userPassword"
               v-model="user.password"
             />
           </div>
