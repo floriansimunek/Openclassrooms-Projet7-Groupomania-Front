@@ -17,19 +17,18 @@ export default {
     };
   },
   created() {
-    //this.getUserProfile();
+    this.getUserProfile();
   },
   methods: {
     getUserProfile() {
       let Token = 'Bearer ' + localStorage.getItem('Token');
       axios({
         method: 'get',
-        url: 'http://localhost:3000/user/me',
+        url: 'http://localhost:3000/api/user/me',
         headers: {
           Authorization: Token,
         },
       }).then(({ data }) => {
-        console.log(this.user);
         this.user = data;
       });
     },
