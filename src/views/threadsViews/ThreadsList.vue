@@ -1,6 +1,5 @@
 <template>
   <main v-if="this.thread._id">
-    <!--  TODO: v-if ? -->
     <div v-if="this.user.username">
       <ThreadInformations
         :key="thread._id"
@@ -10,7 +9,6 @@
       />
     </div>
 
-    <!--  TODO: v-if ? -->
     <div id="messages" v-if="this.user.username">
       <Message
         v-for="message in messages"

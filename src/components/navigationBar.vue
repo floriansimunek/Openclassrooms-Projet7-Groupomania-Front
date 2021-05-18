@@ -1,11 +1,6 @@
 <template>
   <div id="navigation-bar">
-    <div id="user">
-      <p id="user-infos">
-        Florian <br />u/Flo_SMNK • Connecté
-        <span id="connection-state"></span>
-      </p>
-    </div>
+    <UserInformations />
     <div class="btn btn-logout" v-on:click="userLogout()">Déconnexion</div>
     <span class="separation-line"></span>
     <ul id="favs">
@@ -23,10 +18,11 @@
 <script>
 import axios from 'axios';
 import Thread from '@/components/thread';
+import UserInformations from '@/components/user';
 
 export default {
   name: 'navigation-bar',
-  components: { Thread },
+  components: { Thread, UserInformations },
   data() {
     return {
       threads: [],
@@ -75,20 +71,6 @@ export default {
     width: 350px;
     position: static;
     grid-area: sidebar;
-  }
-
-  #user {
-    line-height: 1.5em;
-    margin-bottom: 20px;
-
-    #connection-state {
-      display: inline-block;
-      width: 15px;
-      height: 15px;
-      background: #03c946;
-      border-radius: 50%;
-      transform: translate(0, 2px);
-    }
   }
 
   #favs {
