@@ -1,6 +1,13 @@
 <template>
   <div id="navigation-bar">
     <UserInformations />
+    <!-- TODO: /me -->
+    <router-link
+      :to="{
+        name: 'UserProfile',
+      }"
+      ><div class="btn btn-profile">Profil</div>
+    </router-link>
     <div class="btn btn-logout" v-on:click="userLogout()">Déconnexion</div>
     <span class="separation-line"></span>
     <ul id="favs">
@@ -96,23 +103,37 @@ export default {
 }
 
 .btn {
+  width: 50%;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+  margin: 10px auto;
+  padding: 7px 0;
+  text-align: center;
+  background: $darker-blue;
+  transition: all 0.5s ease;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.5;
+    color: $darker-blue;
+  }
+
   &-logout {
-    background: $darker-blue;
-    width: 50%;
     color: #ff4747;
-    border: none;
-    border-radius: 3px;
-    font-size: 16px;
-    margin: 10px auto;
-    padding: 7px 0;
-    text-align: center;
-    transition: all 0.5s ease;
+    margin-bottom: 20px;
 
     &:hover {
-      cursor: pointer;
       background: #ff4747;
-      opacity: 0.5;
-      color: $darker-blue;
+    }
+  }
+
+  &-profile {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      background: white;
     }
   }
 }

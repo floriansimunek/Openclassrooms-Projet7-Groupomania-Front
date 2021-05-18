@@ -169,6 +169,7 @@ export default {
           }
         })
         // TODO: .error.message?
+        // TODO: Change error message ?
         .catch((error) => {
           this.error =
             error.response.status + ' - ' + error.response.data.error.message;
