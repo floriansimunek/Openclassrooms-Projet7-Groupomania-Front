@@ -1,6 +1,6 @@
 <template>
   <div id="informations-bar">
-    <p>{{ name }}<br />Créé par : {{ username }}</p>
+    <p>{{ name }}<br />{{ description }}</p>
     <p>
       {{
         new Date(Date.parse(createdAt))
@@ -10,6 +10,7 @@
           })
           .replace(':', 'h')
       }}
+      <br />Créé par : {{ username }}
     </p>
   </div>
 </template>
@@ -19,6 +20,10 @@ export default {
   name: 'threadInformations',
   props: {
     name: {
+      type: String,
+      required: true,
+    },
+    description: {
       type: String,
       required: true,
     },

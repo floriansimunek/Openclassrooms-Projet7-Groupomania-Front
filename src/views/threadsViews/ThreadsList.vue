@@ -4,6 +4,7 @@
       <ThreadInformations
         :key="thread._id"
         :name="thread.name"
+        :description="thread.description"
         :createdAt="thread.createdAt"
         :username="user.username"
       />
