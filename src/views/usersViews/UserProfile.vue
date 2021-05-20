@@ -257,6 +257,7 @@ main {
   }
 }
 
+/* User Profile */
 .userProfile {
   background: $darker-blue;
   border-radius: 5px;

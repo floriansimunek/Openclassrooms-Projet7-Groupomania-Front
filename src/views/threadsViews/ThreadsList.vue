@@ -9,7 +9,26 @@
       />
     </div>
 
-    <div class="addMessageBtn" id="myBtn" v-on:click="messageCreation()">
+    <div class="thread-buttons" v-if="thread.userId === currentUserId">
+      <input
+        type="button"
+        value="Supprimer Thread"
+        class="btn deleteThreadBtn"
+        id="deleteThreadBtn"
+        v-on:click="deleteThreadConfirmation()"
+      />
+      <input
+        type="button"
+        value="Modifier Thread"
+        class="btn modifyThreadBtn"
+      />
+    </div>
+
+    <div
+      class="addMessageBtn"
+      id="messageCreationBtn"
+      v-on:click="messageCreation()"
+    >
       Créer un message
     </div>
 
@@ -49,17 +68,29 @@
       </div>
     </div>
 
-    <div class="thread-buttons" v-if="thread.userId === currentUserId">
-      <input
-        type="button"
-        value="Supprimer Thread"
-        class="btn deleteThreadBtn"
-      />
-      <input
-        type="button"
-        value="Modifier Thread"
-        class="btn modifyThreadBtn"
-      />
+    <div id="deleteThreadModal" class="modal modal-deleteThread">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <form class="deleteThread" action="" method="post">
+          <p class="confirmMessage">
+            Le thread va être supprimé définitivement !
+          </p>
+          <div class="deleteThread-buttons">
+            <input
+              class="deleteThread-buttons__cancel"
+              id="deleteThreadCancelBtn"
+              type="button"
+              value="Annuler"
+            />
+            <input
+              class="deleteThread-buttons__delete"
+              value="Supprimer"
+              type="button"
+              v-on:click="deleteThread()"
+            />
+          </div>
+        </form>
+      </div>
     </div>
 
     <div id="messages" v-if="this.user.username">
@@ -139,7 +170,7 @@ export default {
     },
     messageCreation() {
       let modal = document.getElementById('messageCreationModal'); // Get the modal
-      let btn = document.getElementById('myBtn'); // Get the button that opens the modal
+      let btn = document.getElementById('messageCreationBtn'); // Get the button that opens the modal
       let span = document.getElementsByClassName('close')[0]; // Get the <span> element that closes the modal
       let cancelBtn = document.getElementsByClassName(
         'messageCreation-buttons__cancel',
@@ -189,6 +220,29 @@ export default {
             error.response.status + ' - ' + error.response.data.error.message;
         });
     },
+    deleteThreadConfirmation() {
+      let modal = document.getElementById('deleteThreadModal');
+      let btn = document.getElementById('deleteThreadBtn');
+      let span = document.getElementsByClassName('close')[0];
+      let cancelBtn = document.getElementById('deleteThreadCancelBtn');
+
+      btn.onclick = function () {
+        modal.style.display = 'block';
+      };
+
+      span.onclick = function () {
+        modal.style.display = 'none';
+      };
+      cancelBtn.onclick = function () {
+        modal.style.display = 'none';
+      };
+
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      };
+    },
   },
   beforeRouteUpdate(to, from, next) {
     next();
@@ -220,6 +274,7 @@ main {
   font-size: 18px;
   text-decoration: none;
   transition: all 0.5s ease;
+  margin-bottom: 20px;
 
   &:hover {
     cursor: pointer;
@@ -248,74 +303,90 @@ main {
     border-radius: 5px;
     width: 50%; /* Could be more or less, depending on screen size */
   }
-}
 
-/* Message Creation System Form */
-.messageCreation {
-  color: white;
-  text-align: center;
-
-  &-form {
-    margin: 0 auto;
+  /* modals */
+  .messageCreation,
+  .deleteThread {
+    color: white;
     text-align: center;
-    width: 40%;
-  }
 
-  &-inputs {
-    display: flex;
-    flex-direction: column;
-    margin: 10px 0;
-
-    input,
-    textarea {
-      height: 30px;
+    &-form {
+      margin: 0 auto;
       text-align: center;
-      margin: 5px auto;
-      width: 50%;
-      background: $light-blue;
-      border: none;
-      border-radius: 2px;
-      color: white;
-      font-size: 18px;
+      width: 40%;
     }
 
-    textarea {
-      height: 150px !important;
-    }
-  }
-
-  &-buttons {
-    text-align: center;
-
-    input,
-    p {
-      width: 20%;
-      height: 30px;
-      color: white;
-      border: none;
-      border-radius: 2px;
-      margin: 0 5px;
-      font-size: 18px;
-      text-decoration: none;
-      transition: all 0.5s ease;
-      margin-top: 10px;
+    .confirmMessage {
+      color: $custom-red;
+      font-size: 30px;
+      text-align: center;
     }
 
-    &__cancel {
-      background: $light-blue;
-      &:hover {
-        cursor: pointer;
-        background: white;
-        color: $darker-blue;
+    &-inputs {
+      display: flex;
+      flex-direction: column;
+      margin: 10px 0;
+
+      input,
+      textarea {
+        height: 30px;
+        text-align: center;
+        margin: 5px auto;
+        width: 50%;
+        background: $light-blue;
+        border: none;
+        border-radius: 2px;
+        color: white;
+        font-size: 18px;
+      }
+
+      textarea {
+        height: 150px !important;
       }
     }
 
-    &__create {
-      background: $custom-green;
-      &:hover {
-        cursor: pointer;
-        background: white;
-        color: $custom-green;
+    &-buttons {
+      text-align: center;
+
+      input,
+      p {
+        width: 20%;
+        height: 30px;
+        color: white;
+        border: none;
+        border-radius: 2px;
+        margin: 0 5px;
+        font-size: 18px;
+        text-decoration: none;
+        transition: all 0.5s ease;
+        margin-top: 10px;
+      }
+
+      &__cancel {
+        background: $light-blue;
+        &:hover {
+          cursor: pointer;
+          background: white;
+          color: $darker-blue;
+        }
+      }
+
+      &__create {
+        background: $custom-green;
+        &:hover {
+          cursor: pointer;
+          background: white;
+          color: $custom-green;
+        }
+      }
+
+      &__delete {
+        background: $custom-red;
+        &:hover {
+          cursor: pointer;
+          background: white;
+          color: $custom-red;
+        }
       }
     }
   }
@@ -336,10 +407,10 @@ main {
   cursor: pointer;
 }
 
+/* Thread buttons */
 .thread-buttons {
   display: flex;
   flex-direction: column;
-  margin-bottom: 50px;
 
   .btn {
     width: 15%;
