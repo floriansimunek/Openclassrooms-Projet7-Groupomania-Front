@@ -13,7 +13,7 @@
       Créer un message
     </div>
 
-    <div id="myModal" class="modal">
+    <div id="messageCreationModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
         <form class="messageCreation" action="" method="post">
@@ -49,6 +49,19 @@
       </div>
     </div>
 
+    <div class="thread-buttons" v-if="thread.userId === currentUserId">
+      <input
+        type="button"
+        value="Supprimer Thread"
+        class="btn deleteThreadBtn"
+      />
+      <input
+        type="button"
+        value="Modifier Thread"
+        class="btn modifyThreadBtn"
+      />
+    </div>
+
     <div id="messages" v-if="this.user.username">
       <Message
         v-for="message in messages"
@@ -80,6 +93,7 @@ export default {
         message: '',
       },
       error: '',
+      currentUserId: localStorage.getItem('userId'),
     };
   },
   created() {
@@ -124,7 +138,7 @@ export default {
       });
     },
     messageCreation() {
-      let modal = document.getElementById('myModal'); // Get the modal
+      let modal = document.getElementById('messageCreationModal'); // Get the modal
       let btn = document.getElementById('myBtn'); // Get the button that opens the modal
       let span = document.getElementsByClassName('close')[0]; // Get the <span> element that closes the modal
       let cancelBtn = document.getElementsByClassName(
@@ -164,7 +178,7 @@ export default {
       })
         .then(() => {
           if (this.message.message && this.message.subject) {
-            let modal = document.getElementById('myModal');
+            let modal = document.getElementById('messageCreationModal');
             modal.style.display = 'none';
           }
         })
@@ -320,5 +334,43 @@ main {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.thread-buttons {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+
+  .btn {
+    width: 15%;
+    height: 30px;
+    border: none;
+    color: white;
+    border-radius: 2px;
+    margin: 0 10px;
+    font-size: 18px;
+    text-decoration: none;
+    transition: all 0.5s ease;
+    margin-top: 10px;
+
+    &:hover {
+      cursor: pointer;
+      background: white;
+    }
+  }
+
+  .modifyThreadBtn {
+    background: $dark-blue;
+    &:hover {
+      color: $dark-blue;
+    }
+  }
+
+  .deleteThreadBtn {
+    background: $custom-red;
+    &:hover {
+      color: $custom-red;
+    }
+  }
 }
 </style>
