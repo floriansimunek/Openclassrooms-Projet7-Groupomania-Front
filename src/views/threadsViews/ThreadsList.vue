@@ -35,6 +35,7 @@
       Créer un message
     </div>
 
+    <!-- TODO: create component -->
     <div id="messageCreationModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -71,6 +72,7 @@
       </div>
     </div>
 
+    <!-- TODO: create component -->
     <div id="deleteThreadModal" class="modal modal-deleteThread">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -96,6 +98,7 @@
       </div>
     </div>
 
+    <!-- TODO: create component -->
     <div id="modifyThreadModal" class="modal modal-modifyThread">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -329,6 +332,7 @@ export default {
           let modal = document.getElementById('modifyThreadModal');
 
           //TODO: don't work
+          //TODO: refresh page
           btn.onclick = function () {
             modal.style.display = 'none';
           };
