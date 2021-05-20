@@ -243,6 +243,20 @@ export default {
         }
       };
     },
+    deleteThread() {
+      let Token = 'Bearer ' + localStorage.getItem('Token');
+      let threadId = this.$route.params.threadId;
+
+      axios({
+        method: 'DELETE',
+        url: `http://localhost:3000/api/thread/${threadId}`,
+        headers: {
+          Authorization: Token,
+        },
+      }).then(({ data }) => {
+        this.$router.push('/');
+      });
+    },
   },
   beforeRouteUpdate(to, from, next) {
     next();
