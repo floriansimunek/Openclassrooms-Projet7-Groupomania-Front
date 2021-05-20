@@ -81,11 +81,13 @@
       </div>
     </div>
 
+    <!-- TODO: display dynamic answers -->
     <div id="post-line">
       <div id="user-text-post">
         <Message :key="message._id" :message="message.message" />
         <span class="separation-line"></span>
         <div id="buttons">
+          <!-- working buttons -->
           <div class="reply-btn button">Répondre</div>
           <div class="like-btn button">Like</div>
           <div class="dislike-btn button">Dislike</div>
@@ -114,8 +116,8 @@
 
 <script>
 import axios from 'axios';
-import Message from '@/components/inMessage';
-import MessageInformations from '@/components/messageInformations';
+import Message from '@/components/message/inMessage';
+import MessageInformations from '@/components/message/messageInformations';
 
 export default {
   name: 'Messages',
@@ -259,6 +261,7 @@ export default {
 .message-buttons {
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 
   .btn {
     width: 15%;

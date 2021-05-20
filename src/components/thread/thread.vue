@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'navigationBar',
+  name: 'threadList',
   props: {
     name: {
       type: String,

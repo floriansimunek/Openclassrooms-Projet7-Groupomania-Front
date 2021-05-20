@@ -29,8 +29,8 @@
 
 <script>
 import axios from 'axios';
-import Thread from '@/components/thread';
-import UserInformations from '@/components/user';
+import Thread from '@/components/thread/thread';
+import UserInformations from '@/components/user/user';
 
 export default {
   name: 'navigation-bar',

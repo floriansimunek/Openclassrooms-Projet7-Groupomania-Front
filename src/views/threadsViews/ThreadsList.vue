@@ -142,8 +142,8 @@
 
 <script>
 import axios from 'axios';
-import Message from '@/components/message';
-import ThreadInformations from '@/components/threadInformations';
+import Message from '@/components/message/message';
+import ThreadInformations from '@/components/thread/threadInformations';
 
 export default {
   name: 'ThreadsList',

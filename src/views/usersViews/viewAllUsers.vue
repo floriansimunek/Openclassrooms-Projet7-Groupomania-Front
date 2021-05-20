@@ -18,7 +18,7 @@
 <script>
 import axios from 'axios';
 import Layout from '@/components/layout.vue';
-import UsersCard from '@/components/allUsersCard.vue';
+import UsersCard from '@/components/user/allUsersCard.vue';
 
 export default {
   name: 'viewAllUsers',
