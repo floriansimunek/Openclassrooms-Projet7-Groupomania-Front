@@ -9,6 +9,7 @@
       />
     </div>
 
+    <!-- TODO: create component ? -->
     <div class="message-buttons" v-if="message.userId === currentUserId">
       <input
         type="button"

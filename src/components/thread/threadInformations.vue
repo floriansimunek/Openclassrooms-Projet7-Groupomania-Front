@@ -1,7 +1,9 @@
 <template>
   <div id="informations-bar">
     <p>{{ name }}<br />{{ description }}</p>
+
     <p>
+      Créé par : {{ username }}<br />
       {{
         new Date(Date.parse(createdAt))
           .toLocaleDateString('fr', {
@@ -10,7 +12,6 @@
           })
           .replace(':', 'h')
       }}
-      <br />Créé par : {{ username }}
     </p>
   </div>
 </template>
