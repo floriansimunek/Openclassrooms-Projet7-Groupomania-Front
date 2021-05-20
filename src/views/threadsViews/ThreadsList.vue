@@ -21,6 +21,8 @@
         type="button"
         value="Modifier Thread"
         class="btn modifyThreadBtn"
+        id="modifyThreadBtn"
+        v-on:click="modifyThreadPopup()"
       />
     </div>
 
@@ -90,6 +92,34 @@
             />
           </div>
         </form>
+      </div>
+    </div>
+
+    <div id="modifyThreadModal" class="modal modal-modifyThread">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modifyThread-inputs">
+          <p>Nom du thread</p>
+          <input type="text" v-model="thread.name" />
+          <p>Description</p>
+          <input type="text" v-model="thread.description" />
+        </div>
+        <p id="error">{{ error }}</p>
+        <div class="modifyThread-buttons">
+          <input
+            class="modifyThread-buttons__cancel"
+            id="modifyThreadCancelBtn"
+            type="button"
+            value="Annuler"
+          />
+          <input
+            class="modifyThread-buttons__modify"
+            value="Modifier"
+            id="modifyThreadBtn"
+            type="button"
+            v-on:click="modifyThread()"
+          />
+        </div>
       </div>
     </div>
 
@@ -247,15 +277,64 @@ export default {
       let Token = 'Bearer ' + localStorage.getItem('Token');
       let threadId = this.$route.params.threadId;
 
+      //TODO: delete messages where threadId is deleted
       axios({
         method: 'DELETE',
         url: `http://localhost:3000/api/thread/${threadId}`,
         headers: {
           Authorization: Token,
         },
-      }).then(({ data }) => {
+      }).then(() => {
         this.$router.push('/');
       });
+    },
+    modifyThreadPopup() {
+      let modal = document.getElementById('modifyThreadModal');
+      let btn = document.getElementById('modifyThreadBtn');
+      let span = document.getElementsByClassName('close')[0];
+      let cancelBtn = document.getElementById('modifyThreadCancelBtn');
+
+      btn.onclick = function () {
+        modal.style.display = 'block';
+      };
+
+      span.onclick = function () {
+        modal.style.display = 'none';
+      };
+      cancelBtn.onclick = function () {
+        modal.style.display = 'none';
+      };
+
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      };
+    },
+    modifyThread() {
+      let Token = 'Bearer ' + localStorage.getItem('Token');
+      let threadId = this.$route.params.threadId;
+
+      axios({
+        method: 'PUT',
+        url: `http://localhost:3000/api/thread/${threadId}`,
+        data: this.thread,
+        headers: {
+          Authorization: Token,
+        },
+      })
+        .then(() => {
+          let btn = document.getElementById('modifyThreadBtn');
+          let modal = document.getElementById('modifyThreadModal');
+
+          //TODO: don't work
+          btn.onclick = function () {
+            modal.style.display = 'none';
+          };
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   beforeRouteUpdate(to, from, next) {
@@ -320,7 +399,8 @@ main {
 
   /* modals */
   .messageCreation,
-  .deleteThread {
+  .deleteThread,
+  .modifyThread {
     color: white;
     text-align: center;
 
@@ -357,6 +437,12 @@ main {
       textarea {
         height: 150px !important;
       }
+
+      p {
+        color: white;
+        margin: 0 auto;
+        margin-top: 10px;
+      }
     }
 
     &-buttons {
@@ -385,7 +471,8 @@ main {
         }
       }
 
-      &__create {
+      &__create,
+      &__modify {
         background: $custom-green;
         &:hover {
           cursor: pointer;
