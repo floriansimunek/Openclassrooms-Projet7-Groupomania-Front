@@ -1,5 +1,5 @@
 <template>
-  <fragment>
+  <div>
     <div class="thread-buttons" v-if="thread.userId === currentUserId">
       <input
         type="button"
@@ -116,7 +116,7 @@
         </form>
       </div>
     </div>
-  </fragment>
+  </div>
 </template>
 
 <script>

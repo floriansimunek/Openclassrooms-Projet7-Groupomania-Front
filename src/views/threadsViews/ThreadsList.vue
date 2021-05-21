@@ -10,7 +10,7 @@
       />
     </div>
 
-    <ThreadButtons :thread="thread" :message="message" />
+    <ThreadButtonsModal :thread="thread" :message="message" />
 
     <div id="messages" v-if="this.user.username">
       <Message
@@ -28,12 +28,12 @@
 <script>
 import axios from 'axios';
 import ThreadInformations from '@/components/thread/threadInformations';
-import ThreadButtons from '@/components/thread/threadButtons';
+import ThreadButtonsModal from '@/components/thread/threadButtonsModal';
 import Message from '@/components/message/message';
 
 export default {
   name: 'ThreadsList',
-  components: { ThreadInformations, ThreadButtons, Message },
+  components: { ThreadInformations, ThreadButtonsModal, Message },
   data() {
     return {
       messages: [],

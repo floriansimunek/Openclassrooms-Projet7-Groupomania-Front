@@ -1,14 +1,14 @@
 <template>
-  <router-link
-    :to="{
-      name: 'MessagesList',
-      params: {
-        threadId: $route.params.threadId,
-        messageId,
-      },
-    }"
-  >
-    <div class="messageInThread">
+  <div class="messageInThread">
+    <router-link
+      :to="{
+        name: 'MessagesList',
+        params: {
+          threadId: $route.params.threadId,
+          messageId,
+        },
+      }"
+    >
       <p>
         Sujet : {{ subject }}<br />
         Écrit par : {{ username }} •
@@ -22,8 +22,8 @@
         }}<br />
         {{ commentCount }} commentaires
       </p>
-    </div>
-  </router-link>
+    </router-link>
+  </div>
 </template>
 
 <script>
