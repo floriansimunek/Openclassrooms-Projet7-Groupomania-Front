@@ -20,3 +20,20 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+#message {
+  margin: 10px;
+
+  p {
+    overflow-wrap: break-word;
+  }
+
+  &Image {
+    height: 30%;
+    width: 30%;
+    margin: 20px auto;
+    display: block;
+  }
+}
+</style>

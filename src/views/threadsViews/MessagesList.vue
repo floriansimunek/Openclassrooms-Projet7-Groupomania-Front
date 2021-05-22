@@ -353,21 +353,6 @@ main {
       width: 80%;
     }
 
-    #message {
-      margin: 10px;
-
-      p {
-        overflow-wrap: break-word;
-      }
-
-      &Image {
-        background: red;
-        :hover {
-          display: none;
-        }
-      }
-    }
-
     .separation-line {
       width: 300px;
     }
