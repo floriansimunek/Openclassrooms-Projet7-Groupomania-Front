@@ -20,12 +20,8 @@
         class="btn addMessageBtn"
         id="messageCreationBtn"
         value="Créer un message"
-        v-on:click="messageCreation()"
+        v-on:click="messageCreationPopup()"
       />
-      <form class="uploadImage" enctype="multipart/form-data">
-        <input type="file" name="postGif" id="postGif" />
-        <input type="button" value="Valider" v-on:click="postGif()" />
-      </form>
     </div>
 
     <div id="deleteThreadModal" class="modal modal-deleteThread">
@@ -99,6 +95,21 @@
               v-model="message.message"
             />
           </div>
+          <form
+            action=""
+            method="post"
+            name="imageForm"
+            id="imageForm"
+            enctype="multipart/form-data"
+          >
+            <input
+              type="file"
+              accept="image/png, image/jpeg, image/jpg, image/gif"
+              name="postGif"
+              id="postGif"
+              v-on:change="postGif()"
+            />
+          </form>
           {{ error }}
           <div class="messageCreation-buttons">
             <input
@@ -187,7 +198,7 @@ export default {
         }
       };
     },
-    messageCreation() {
+    messageCreationPopup() {
       let modal = document.getElementById('messageCreationModal'); // Get the modal
       let btn = document.getElementById('messageCreationBtn'); // Get the button that opens the modal
       let span = document.getElementsByClassName('close')[0]; // Get the <span> element that closes the modal
@@ -219,7 +230,7 @@ export default {
       let Token = 'Bearer ' + localStorage.getItem('Token');
       let threadId = this.$route.params.threadId;
 
-      //TODO: delete messages where threadId is deleted
+      //TODO: delete messages + reacts where threadId is deleted
       axios({
         method: 'DELETE',
         url: `http://localhost:3000/api/thread/${threadId}`,
@@ -233,15 +244,18 @@ export default {
     postGif() {
       let Token = 'Bearer ' + localStorage.getItem('Token');
       let threadId = this.$route.params.threadId;
+      let formData = new FormData();
+      formData.append('image', document.getElementById('postGif').files[0]);
 
       axios({
         method: 'POST',
         url: `http://localhost:3000/api/thread/${threadId}/message/gif`,
+        data: formData,
         headers: {
           Authorization: Token,
         },
       }).then(({ data }) => {
-        console.log(data);
+        this.message.imageUrl = data.imageUrl;
       });
     },
     modifyThread() {
@@ -282,6 +296,7 @@ export default {
         },
       })
         .then(() => {
+          //TODO: refresh page
           if (this.message.message && this.message.subject) {
             let modal = document.getElementById('messageCreationModal');
             modal.style.display = 'none';

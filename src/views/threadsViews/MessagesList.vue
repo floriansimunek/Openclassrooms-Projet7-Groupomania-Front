@@ -162,7 +162,7 @@ export default {
       let Token = 'Bearer ' + localStorage.getItem('Token');
       axios({
         method: 'post',
-        url: 'http://localhost:3000/api/',
+        url: `http://localhost:3000/api/thread/${threadId}/message/${messageId}`,
         headers: {
           Authorization: Token,
         },
