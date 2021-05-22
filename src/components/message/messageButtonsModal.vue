@@ -49,7 +49,7 @@
           <p>Sujet du message</p>
           <input type="text" v-model="message.subject" />
           <p>Message</p>
-          <input type="text" v-model="message.message" />
+          <textarea type="text" v-model="message.message" />
         </div>
         <p id="error">{{ error }}</p>
         <div class="modifyMessage-buttons">
@@ -154,10 +154,11 @@ export default {
     modifyMessage() {
       let Token = 'Bearer ' + localStorage.getItem('Token');
       let threadId = this.$route.params.threadId;
+      let messageId = this.$route.params.messageId;
 
       axios({
         method: 'PUT',
-        url: `http://localhost:3000/api/thread/${threadId}`,
+        url: `http://localhost:3000/api/thread/${threadId}/message/${messageId}`,
         data: this.message,
         headers: {
           Authorization: Token,
