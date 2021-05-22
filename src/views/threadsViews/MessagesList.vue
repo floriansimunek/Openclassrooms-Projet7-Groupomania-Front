@@ -15,7 +15,11 @@
     <!-- TODO: Create component -->
     <div id="post-line">
       <div id="user-text-post">
-        <Message :key="message._id" :message="message.message" />
+        <Message
+          :key="message._id"
+          :message="message.message"
+          :imageUrl="message.imageUrl"
+        />
         <span class="separation-line"></span>
         <div id="buttons">
           <!-- working buttons -->
@@ -349,9 +353,19 @@ main {
       width: 80%;
     }
 
-    p {
+    #message {
       margin: 10px;
-      overflow-wrap: break-word;
+
+      p {
+        overflow-wrap: break-word;
+      }
+
+      &Image {
+        background: red;
+        :hover {
+          display: none;
+        }
+      }
     }
 
     .separation-line {

@@ -287,6 +287,7 @@ export default {
     createMessage() {
       let threadId = this.$route.params.threadId;
       let Token = 'Bearer ' + localStorage.getItem('Token');
+
       axios({
         method: 'post',
         url: `http://localhost:3000/api/thread/${threadId}/message`,
