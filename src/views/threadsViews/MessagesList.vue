@@ -12,15 +12,16 @@
     <MessageButtonsModal :message="message" />
 
     <!-- TODO: display dynamic answers -->
+    <!-- TODO: Create component -->
     <div id="post-line">
       <div id="user-text-post">
         <Message :key="message._id" :message="message.message" />
         <span class="separation-line"></span>
         <div id="buttons">
           <!-- working buttons -->
-          <div class="reply-btn button">Répondre</div>
-          <div class="like-btn button">Like</div>
-          <div class="dislike-btn button">Dislike</div>
+          <input type="button" class="btn btn-reply" value="Répondre" />
+          <input type="button" class="btn btn-like" value="Like" />
+          <input type="button" class="btn btn-dislike" value="Dislike" />
         </div>
       </div>
       <div id="comments">
@@ -165,14 +166,46 @@ main {
         margin-left: 15px;
       }
 
-      .button {
-        border: 1px solid black;
-        border-radius: 5px;
-        padding: 5px 10px;
-        text-align: center;
+      .btn {
+        width: 10%;
+        height: 30px;
+        border: none;
+        color: white;
+        border-radius: 2px;
+        margin: 0 10px;
+        font-size: 18px;
+        text-decoration: none;
+        transition: all 0.5s ease;
+        margin-top: 10px;
 
         @media screen and(min-width: 992px) {
           margin: 0 5px;
+        }
+
+        &:hover {
+          cursor: pointer;
+          background: white;
+        }
+
+        &-reply {
+          background: $dark-blue;
+          &:hover {
+            color: $dark-blue;
+          }
+        }
+
+        &-like {
+          background: $custom-green;
+          &:hover {
+            color: $custom-green;
+          }
+        }
+
+        &-dislike {
+          background: $custom-red;
+          &:hover {
+            color: $custom-red;
+          }
         }
       }
     }
