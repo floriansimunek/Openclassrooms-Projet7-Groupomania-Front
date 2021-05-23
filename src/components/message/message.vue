@@ -1,5 +1,5 @@
 <template>
-  <div class="messageInThread">
+  <div class="messageInThread" v-if="!answerMessageId">
     <router-link
       :to="{
         name: 'MessagesList',
@@ -50,6 +50,10 @@ export default {
     messageId: {
       type: String,
       required: true,
+    },
+    answerMessageId: {
+      type: String,
+      required: false,
     },
   },
 };

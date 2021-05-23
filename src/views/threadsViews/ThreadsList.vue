@@ -20,6 +20,7 @@
         :createdAt="message.createdAt"
         :username="user.username"
         :messageId="message._id"
+        :answerMessageId="message.messageId"
       />
     </div>
   </main>
