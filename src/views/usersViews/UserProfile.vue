@@ -196,11 +196,8 @@ export default {
         },
       })
         .then(() => {
-          let btn = document.getElementById('userModifyConfirmBtn');
           let modal = document.getElementById('modifyUserModal');
-          btn.onclick = function () {
-            modal.style.display = 'none';
-          };
+          modal.style.display = 'none';
         })
         .catch((error) => {
           this.error =
