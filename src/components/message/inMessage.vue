@@ -22,13 +22,13 @@
         <input
           type="button"
           class="btn btn-like"
-          value="Like"
+          :value="likes + ' Likes'"
           v-on:click="reactToMessage('like')"
         />
         <input
           type="button"
           class="btn btn-dislike"
-          value="Dislike"
+          :value="dislikes + ' Dislike'"
           v-on:click="reactToMessage('dislike')"
         />
       </div>
@@ -109,6 +109,8 @@ export default {
         type: '',
       },
       reacts: [],
+      likes: '',
+      dislikes: '',
     };
   },
   props: {
@@ -119,6 +121,7 @@ export default {
   },
   created() {
     this.fetchAnswers();
+    this.fetchReacts();
   },
   methods: {
     fetchAnswers() {
@@ -213,6 +216,30 @@ export default {
         },
       }).then(({ data }) => {
         console.log(data);
+      });
+    },
+    fetchReacts() {
+      let threadId = this.$route.params.threadId;
+      let messageId = this.$route.params.messageId;
+      let Token = 'Bearer ' + localStorage.getItem('Token');
+
+      axios({
+        method: 'get',
+        url: `http://localhost:3000/api/thread/${threadId}/message/${messageId}/react`,
+        headers: {
+          Authorization: Token,
+        },
+      }).then(({ data }) => {
+        this.reacts = data;
+        for (let i = 0; i < this.reacts.length; i++) {
+          if (this.reacts[i].type === 'like') {
+            this.likes++;
+          } else if (this.reacts[i].type === 'dislike') {
+            this.dislikes++;
+          } else {
+            console.error('Unvalid');
+          }
+        }
       });
     },
   },
