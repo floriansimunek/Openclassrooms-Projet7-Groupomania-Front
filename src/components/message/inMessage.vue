@@ -22,12 +22,14 @@
         <input
           type="button"
           class="btn btn-like"
+          id="btn-like"
           :value="likes + ' Likes'"
           v-on:click="reactToMessage('like')"
         />
         <input
           type="button"
           class="btn btn-dislike"
+          id="btn-dislike"
           :value="dislikes + ' Dislike'"
           v-on:click="reactToMessage('dislike')"
         />
@@ -99,6 +101,7 @@ export default {
       error: '',
       user: '',
       currentMessage: this.$route.params.messageId,
+      currentUserId: localStorage.getItem('userId'),
       comments: '',
       answerMessageDatas: {
         subject: '.',
@@ -234,8 +237,18 @@ export default {
         for (let i = 0; i < this.reacts.length; i++) {
           if (this.reacts[i].type === 'like') {
             this.likes++;
+            if (this.reacts[i].userId === this.currentUserId) {
+              let likeBtn = document.getElementById('btn-like');
+              likeBtn.style.background = '#03c946';
+              likeBtn.style.color = 'white';
+            }
           } else if (this.reacts[i].type === 'dislike') {
             this.dislikes++;
+            if (this.reacts[i].userId === this.currentUserId) {
+              let dislikeBtn = document.getElementById('btn-dislike');
+              dislikeBtn.style.background = '#ff4747';
+              dislikeBtn.style.color = 'white';
+            }
           } else {
             console.error('Unvalid');
           }
