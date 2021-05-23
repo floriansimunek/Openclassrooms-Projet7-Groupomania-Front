@@ -56,14 +56,24 @@
     </div>
 
     <!-- TODO: display dynamic answers -->
-    <div id="comments">
-      <div class="post-comment">
+    <div id="comments" :key="comment._id" v-for="comment in comments">
+      <div class="post-comment" v-if="comment.messageId == currentMessage">
         <div class="comment-infos">
           <div class="profile-picture"></div>
-          <p>Écrit par u/Jo_SMNK • 03/11/2021</p>
+          <p>
+            Écrit par {{ comment.userId }} •
+            {{
+              new Date(Date.parse(comment.createdAt))
+                .toLocaleDateString('fr', {
+                  hour: 'numeric',
+                  minute: 'numeric',
+                })
+                .replace(':', 'h')
+            }}
+          </p>
         </div>
         <p class="comment-text">
-          {{ comment }}
+          {{ comment.message }}
         </p>
       </div>
     </div>
@@ -78,9 +88,11 @@ export default {
   data() {
     return {
       error: '',
-      comment: '',
+      user: '',
+      currentMessage: this.$route.params.messageId,
+      comments: '',
       answerMessageDatas: {
-        subject: '..aazeze.',
+        subject: '.',
         message: '',
         messageId: '',
       },
@@ -92,7 +104,42 @@ export default {
       required: true,
     },
   },
+  created() {
+    this.fetchAnswers();
+  },
   methods: {
+    fetchAnswers() {
+      let threadId = this.$route.params.threadId;
+      let Token = 'Bearer ' + localStorage.getItem('Token');
+
+      axios({
+        method: 'get',
+        url: `http://localhost:3000/api/thread/${threadId}/message`,
+        headers: {
+          Authorization: Token,
+        },
+      })
+        .then(({ data }) => {
+          this.comments = data;
+
+          // TODO: get user
+          axios({
+            method: 'get',
+            url: `http://localhost:3000/api/user/${this.comments[0].userId}`,
+            headers: {
+              Authorization: Token,
+            },
+          }).then(({ data }) => {
+            this.user = data;
+            console.log(this.user);
+          });
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.$router.push('/api/user/login');
+          }
+        });
+    },
     answerMessagePopup() {
       let modal = document.getElementById('messageAnswerModal'); // Get the modal
       let btn = document.getElementById('messageAnswerBtn'); // Get the button that opens the modal
@@ -127,13 +174,6 @@ export default {
       let Token = 'Bearer ' + localStorage.getItem('Token');
       this.answerMessageDatas.messageId = messageId;
 
-      let btn = document.getElementById('answerMessageButton');
-      let modal = document.getElementById('messageAnswerModal');
-
-      btn.onclick = function () {
-        modal.style.display = 'none';
-      };
-
       axios({
         method: 'POST',
         url: `http://localhost:3000/api/thread/${threadId}/message`,
@@ -141,7 +181,10 @@ export default {
         headers: {
           Authorization: Token,
         },
-      }).then();
+      }).then(() => {
+        let modal = document.getElementById('messageAnswerModal');
+        modal.style.display = 'none';
+      });
     },
   },
 };
