@@ -84,7 +84,6 @@ export default {
           localStorage.setItem('Token', data.accessToken);
           this.$router.push('/');
         })
-        // TODO: .message ?
         .catch((error) => {
           this.error =
             error.response.status + ' - ' + error.response.data.message;

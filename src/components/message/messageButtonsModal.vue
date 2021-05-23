@@ -165,14 +165,9 @@ export default {
         },
       })
         .then(() => {
-          let btn = document.getElementById('modifyMessageBtn');
-          let modal = document.getElementById('modifyMessageModal');
-
-          //TODO: don't work
           //TODO: refresh page
-          btn.onclick = function () {
-            modal.style.display = 'none';
-          };
+          let modal = document.getElementById('modifyMessageModal');
+          modal.style.display = 'none';
         })
         .catch((error) => {
           console.log(error);

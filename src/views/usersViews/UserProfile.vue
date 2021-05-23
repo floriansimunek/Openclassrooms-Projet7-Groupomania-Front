@@ -315,7 +315,6 @@ main {
 }
 
 /* The Modal (background) */
-// TODO: Animation ?
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */

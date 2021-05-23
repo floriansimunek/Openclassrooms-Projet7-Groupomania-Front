@@ -73,7 +73,6 @@ export default {
           localStorage.setItem('Token', data.accessToken);
           this.$router.push('/');
         })
-        // TODO: .error ?
         .catch((error) => {
           this.error =
             error.response.status + ' - ' + error.response.data.error;

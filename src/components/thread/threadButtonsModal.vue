@@ -271,14 +271,9 @@ export default {
         },
       })
         .then(() => {
-          let btn = document.getElementById('modifyThreadBtn');
-          let modal = document.getElementById('modifyThreadModal');
-
-          //TODO: don't work
           //TODO: refresh page
-          btn.onclick = function () {
-            modal.style.display = 'none';
-          };
+          let modal = document.getElementById('modifyThreadModal');
+          modal.style.display = 'none';
         })
         .catch((error) => {
           console.log(error);
@@ -303,8 +298,6 @@ export default {
             modal.style.display = 'none';
           }
         })
-        // TODO: .error.message?
-        // TODO: Change error message ?
         .catch((error) => {
           this.error =
             error.response.status + ' - ' + error.response.data.error.message;

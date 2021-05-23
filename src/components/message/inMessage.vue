@@ -19,8 +19,18 @@
           value="Répondre"
           v-on:click="answerMessagePopup()"
         />
-        <input type="button" class="btn btn-like" value="Like" />
-        <input type="button" class="btn btn-dislike" value="Dislike" />
+        <input
+          type="button"
+          class="btn btn-like"
+          value="Like"
+          v-on:click="reactToMessage('like')"
+        />
+        <input
+          type="button"
+          class="btn btn-dislike"
+          value="Dislike"
+          v-on:click="reactToMessage('dislike')"
+        />
       </div>
     </div>
 
@@ -55,7 +65,6 @@
       </div>
     </div>
 
-    <!-- TODO: display dynamic answers -->
     <div id="comments" :key="comment._id" v-for="comment in comments">
       <div class="post-comment" v-if="comment.messageId == currentMessage">
         <div class="comment-infos">
@@ -96,6 +105,10 @@ export default {
         message: '',
         messageId: '',
       },
+      react: {
+        type: '',
+      },
+      reacts: [],
     };
   },
   props: {
@@ -131,7 +144,6 @@ export default {
             },
           }).then(({ data }) => {
             this.user = data;
-            console.log(this.user);
           });
         })
         .catch((error) => {
@@ -184,6 +196,23 @@ export default {
       }).then(() => {
         let modal = document.getElementById('messageAnswerModal');
         modal.style.display = 'none';
+      });
+    },
+    reactToMessage(reactType) {
+      let threadId = this.$route.params.threadId;
+      let messageId = this.$route.params.messageId;
+      let Token = 'Bearer ' + localStorage.getItem('Token');
+      this.react.type = reactType;
+
+      axios({
+        method: 'POST',
+        url: `http://localhost:3000/api/thread/${threadId}/message/${messageId}/react`,
+        data: this.react,
+        headers: {
+          Authorization: Token,
+        },
+      }).then(({ data }) => {
+        console.log(data);
       });
     },
   },
@@ -394,16 +423,22 @@ export default {
         }
 
         &-like {
-          background: $custom-green;
+          border: 2px $custom-green solid;
+          color: $custom-green;
+
           &:hover {
-            color: $custom-green;
+            background: $custom-green;
+            color: white;
           }
         }
 
         &-dislike {
-          background: $custom-red;
+          border: 2px $custom-red solid;
+          color: $custom-red;
+
           &:hover {
-            color: $custom-red;
+            background: $custom-red;
+            color: white;
           }
         }
       }
