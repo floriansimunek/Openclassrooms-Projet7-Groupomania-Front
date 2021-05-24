@@ -71,7 +71,6 @@
       </div>
     </div>
 
-    <!-- TODO: Create component -->
     <div id="test" v-if="this.comments.length > 0">
       <Comments
         v-for="comment in this.comments"

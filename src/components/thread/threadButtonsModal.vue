@@ -1,12 +1,13 @@
 <template>
   <div>
-    <div class="thread-buttons" v-if="thread.userId === currentUserId">
+    <div class="thread-buttons">
       <input
         type="button"
         value="Supprimer Thread"
         class="btn deleteThreadBtn"
         id="deleteThreadBtn"
         v-on:click="deleteThreadConfirmation()"
+        v-if="thread.userId === currentUserId"
       />
       <input
         type="button"
@@ -14,6 +15,7 @@
         class="btn modifyThreadBtn"
         id="modifyThreadBtn"
         v-on:click="modifyThreadPopup()"
+        v-if="thread.userId === currentUserId"
       />
       <input
         type="button"
