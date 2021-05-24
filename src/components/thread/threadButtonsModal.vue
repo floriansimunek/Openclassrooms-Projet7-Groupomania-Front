@@ -132,6 +132,7 @@
 
 <script>
 import axios from 'axios';
+import EventBus from '@/eventBus';
 
 export default {
   name: 'ThreadButtons',
@@ -270,9 +271,9 @@ export default {
         },
       })
         .then(() => {
-          //TODO: refresh page
           let modal = document.getElementById('modifyThreadModal');
           modal.style.display = 'none';
+          EventBus.$emit('RefreshThread');
         })
         .catch((error) => {
           console.log(error);
@@ -291,10 +292,10 @@ export default {
         },
       })
         .then(() => {
-          //TODO: refresh page
           if (this.message.message && this.message.subject) {
             let modal = document.getElementById('messageCreationModal');
             modal.style.display = 'none';
+            EventBus.$emit('RefreshMessages');
           }
         })
         .catch((error) => {

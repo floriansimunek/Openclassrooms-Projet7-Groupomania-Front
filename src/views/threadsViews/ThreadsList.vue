@@ -1,6 +1,6 @@
 <template>
   <main v-if="this.thread._id">
-    <div v-if="this.user.username">
+    <div id="threadInformations" v-if="this.user.username">
       <ThreadInformations
         :key="thread._id"
         :name="thread.name"
@@ -31,6 +31,7 @@ import axios from 'axios';
 import ThreadInformations from '@/components/thread/threadInformations';
 import ThreadButtonsModal from '@/components/thread/threadButtonsModal';
 import Message from '@/components/message/message';
+import EventBus from '@/eventBus';
 
 export default {
   name: 'ThreadsList',
@@ -47,8 +48,10 @@ export default {
     };
   },
   created() {
-    this.fetchMessages();
     this.fetchThread();
+    EventBus.$on('RefreshThread', this.fetchThread);
+    this.fetchMessages();
+    EventBus.$on('RefreshMessages', this.fetchMessages);
   },
   methods: {
     fetchThread() {

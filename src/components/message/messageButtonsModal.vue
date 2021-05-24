@@ -74,6 +74,7 @@
 
 <script>
 import axios from 'axios';
+import EventBus from '@/eventBus';
 
 export default {
   name: 'messageButtonsModal',
@@ -88,6 +89,9 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  created() {
+    EventBus.$on('RefreshMessage', this.modifyMessage);
   },
   methods: {
     deleteMessageConfirmation() {
@@ -166,9 +170,9 @@ export default {
         },
       })
         .then(() => {
-          //TODO: refresh page
           let modal = document.getElementById('modifyMessageModal');
           modal.style.display = 'none';
+          EventBus.$emit('RefreshMessage');
         })
         .catch((error) => {
           console.log(error);
