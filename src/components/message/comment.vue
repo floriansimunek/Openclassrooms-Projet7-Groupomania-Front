@@ -1,13 +1,13 @@
 <template>
   <fragment>
-    <div id="comments" v-for="comment in this.comments" :key="comment._id">
-      <div class="post-comment" v-if="comment.messageId == currentMessage">
+    <div id="comments">
+      <div class="post-comment">
         <div class="comment-infos">
           <div class="profile-picture"></div>
           <p>
-            Écrit par {{ commentUsername }} •
+            Écrit par {{ this.user.username }} •
             {{
-              new Date(Date.parse(comment.createdAt))
+              new Date(Date.parse(this.createdAt))
                 .toLocaleDateString('fr', {
                   hour: 'numeric',
                   minute: 'numeric',
@@ -18,7 +18,7 @@
           </p>
         </div>
         <p class="comment-text">
-          {{ comment.message }}
+          {{ this.comment }}
         </p>
       </div>
     </div>
@@ -33,33 +33,38 @@ export default {
   data() {
     return {
       currentMessage: this.$route.params.messageId,
-      commentUsername: '',
+      user: [],
     };
   },
-  created() {
-    this.getUser();
-  },
   props: {
-    comments: {
-      type: Array,
+    userId: {
+      type: String,
+      required: true,
+    },
+    comment: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+      type: String,
       required: true,
     },
   },
+  created() {
+    this.fetchUsers();
+  },
   methods: {
-    getUser() {
+    fetchUsers() {
       let Token = 'Bearer ' + localStorage.getItem('Token');
-
-      for (let comment of this.comments) {
-        axios({
-          method: 'get',
-          url: `http://localhost:3000/api/user/${comment.userId}`,
-          headers: {
-            Authorization: Token,
-          },
-        }).then((data) => {
-          this.commentUsername = data.data.username;
-        });
-      }
+      axios({
+        method: 'get',
+        url: `http://localhost:3000/api/user/${this.userId}`,
+        headers: {
+          Authorization: Token,
+        },
+      }).then(({ data }) => {
+        this.user = data;
+      });
     },
   },
 };
