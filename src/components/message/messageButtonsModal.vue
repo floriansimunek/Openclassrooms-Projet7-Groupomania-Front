@@ -121,7 +121,6 @@ export default {
       let Token = 'Bearer ' + localStorage.getItem('Token');
       let threadId = this.$route.params.threadId;
       let messageId = this.$route.params.messageId;
-      // TODO: delete image in backend
 
       axios({
         method: 'DELETE',
@@ -200,6 +199,10 @@ export default {
     text-decoration: none;
     transition: all 0.5s ease;
     margin-top: 10px;
+
+    @media screen and (max-width: 992px) {
+      width: 50%;
+    }
 
     &:hover {
       cursor: pointer;

@@ -1,6 +1,6 @@
 <template>
   <fragment>
-    <div id="comments">
+    <div id="comments" v-if="this.commentMessageId === currentMessage">
       <div class="post-comment">
         <div class="comment-infos">
           <div class="profile-picture"></div>
@@ -43,6 +43,9 @@ export default {
     },
     comment: {
       type: String,
+      required: true,
+    },
+    commentMessageId: {
       required: true,
     },
     createdAt: {
@@ -96,8 +99,12 @@ export default {
       justify-content: space-around;
       align-items: center;
 
-      @media screen and(min-width: 992px) {
+      @media screen and (min-width: 992px) {
         justify-content: left;
+      }
+
+      @media screen and (max-width: 992px) {
+        margin-left: 10px;
       }
 
       .profile-picture {
@@ -107,6 +114,10 @@ export default {
 
         @media screen and(min-width: 992px) {
           margin: 0 15px;
+        }
+
+        @media screen and(max-width: 992px) {
+          display: none;
         }
       }
     }

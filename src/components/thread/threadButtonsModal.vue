@@ -486,6 +486,10 @@ export default {
       cursor: pointer;
       background: white;
     }
+
+    @media screen and (max-width: 992px) {
+      width: 50%;
+    }
   }
 
   .modifyThreadBtn {

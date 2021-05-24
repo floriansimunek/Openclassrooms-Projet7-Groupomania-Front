@@ -30,7 +30,6 @@ export default {
     grid-template-areas:
       'header header'
       'sidebar main';
-    max-height: 100vh;
     padding-top: 0;
   }
 }
@@ -50,15 +49,13 @@ main {
     overflow-y: scroll;
   }
 
+  height: $screen-height-size;
+  background-color: rgba(44, 61, 85, 0.05);
   display: flex;
   align-items: center;
   justify-content: center;
 
   #home-message {
-    @media screen and(min-width: 992px) {
-      //margin-left: 350px;
-    }
-
     text-align: center;
     font-weight: bold;
     font-size: 18px;

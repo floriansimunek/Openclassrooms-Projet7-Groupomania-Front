@@ -49,14 +49,15 @@ export default {
   align-items: center;
   justify-content: space-between;
 
-  @media screen and(min-width: 992px) {
-    //margin-left: 350px;
-  }
-
   p {
     color: #fff;
     line-height: 1.3em;
     margin: 0 10px;
+    word-break: break-all;
+
+    @media screen and (max-width: 992px) {
+      width: 100%;
+    }
 
     &:nth-child(2) {
       text-align: right;

@@ -76,6 +76,7 @@
         v-for="comment in this.comments"
         :key="comment._id"
         :comment="comment.message"
+        :commentMessageId="comment.messageId"
         :userId="comment.userId"
         :createdAt="comment.createdAt"
       />
@@ -429,6 +430,9 @@ export default {
 
 /* Post Line */
 #post-line {
+  width: 100%;
+  height: $screen-height-size;
+
   #user-text-post {
     width: 90%;
     margin: 10px 0;
@@ -437,8 +441,12 @@ export default {
     border-radius: 5px;
     padding: 5px 0;
 
-    @media screen and(min-width: 992px) {
+    @media screen and (min-width: 992px) {
       width: 80%;
+    }
+
+    @media screen and (max-width: 992px) {
+      margin-left: 15px;
     }
 
     .separation-line {
@@ -468,8 +476,12 @@ export default {
         transition: all 0.5s ease;
         margin-top: 10px;
 
-        @media screen and(min-width: 992px) {
+        @media screen and (min-width: 992px) {
           margin: 0 5px;
+        }
+
+        @media screen and (max-width: 992px) {
+          width: 30%;
         }
 
         &:hover {
