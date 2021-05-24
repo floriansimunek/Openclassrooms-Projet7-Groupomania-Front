@@ -23,7 +23,7 @@
           type="button"
           class="btn btn-like"
           id="btn-like"
-          :value="likes + ' Likes'"
+          :value="likes + ' Like'"
           v-on:click="reactToMessage('like')"
         />
         <input
@@ -107,9 +107,6 @@ export default {
         subject: '.',
         message: '',
         messageId: '',
-      },
-      react: {
-        type: '',
       },
       reacts: [],
       likes: '',
@@ -208,17 +205,44 @@ export default {
       let threadId = this.$route.params.threadId;
       let messageId = this.$route.params.messageId;
       let Token = 'Bearer ' + localStorage.getItem('Token');
-      this.react.type = reactType;
 
       axios({
-        method: 'POST',
+        method: 'get',
         url: `http://localhost:3000/api/thread/${threadId}/message/${messageId}/react`,
-        data: this.react,
         headers: {
           Authorization: Token,
         },
       }).then(({ data }) => {
-        console.log(data);
+        let reactsArray = data;
+        console.log(reactsArray);
+
+        for (let i = 0; i < reactsArray.length; i++) {
+          if (
+            reactsArray[i].userId === this.currentUserId &&
+            reactType === reactsArray[i].type
+          ) {
+            axios({
+              method: 'delete',
+              url: `http://localhost:3000/api/thread/${threadId}/message/${messageId}/react/${reactsArray[i]._id}`,
+              headers: {
+                Authorization: Token,
+              },
+            }).then(({ data }) => {
+              console.log(data);
+            });
+            return;
+          }
+        }
+        axios({
+          method: 'post',
+          url: `http://localhost:3000/api/thread/${threadId}/message/${messageId}/react`,
+          data: { type: reactType },
+          headers: {
+            Authorization: Token,
+          },
+        }).then(({ data }) => {
+          console.log(data);
+        });
       });
     },
     fetchReacts() {
@@ -241,6 +265,7 @@ export default {
               let likeBtn = document.getElementById('btn-like');
               likeBtn.style.background = '#03c946';
               likeBtn.style.color = 'white';
+              //TODO: add disable dislike
             }
           } else if (this.reacts[i].type === 'dislike') {
             this.dislikes++;
@@ -248,6 +273,7 @@ export default {
               let dislikeBtn = document.getElementById('btn-dislike');
               dislikeBtn.style.background = '#ff4747';
               dislikeBtn.style.color = 'white';
+              //TODO: add disable like
             }
           } else {
             console.error('Unvalid');
