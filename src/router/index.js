@@ -47,7 +47,22 @@ const routes = [
     },
   },
   {
-    // TODO: add /thread route
+    path: '/thread',
+    name: 'Thread',
+    component: Home,
+    meta: {
+      auth: true,
+    },
+  },
+  {
+    path: '/message',
+    name: 'Message',
+    component: Home,
+    meta: {
+      auth: true,
+    },
+  },
+  {
     path: '/thread/:threadId',
     component: Thread,
     meta: {
@@ -63,7 +78,6 @@ const routes = [
         },
       },
       {
-        // TODO: add /message route
         path: 'message/:messageId',
         component: MessagesList,
         name: 'MessagesList',

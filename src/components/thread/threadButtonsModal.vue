@@ -230,7 +230,6 @@ export default {
       let Token = 'Bearer ' + localStorage.getItem('Token');
       let threadId = this.$route.params.threadId;
 
-      //TODO: delete messages + reacts where threadId is deleted
       axios({
         method: 'DELETE',
         url: `http://localhost:3000/api/thread/${threadId}`,

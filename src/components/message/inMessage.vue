@@ -24,6 +24,8 @@
           class="btn btn-like"
           id="btn-like"
           :value="likes + ' Like'"
+          :class="{ active: hasLiked }"
+          :disabled="hasDisliked"
           v-on:click="reactToMessage('like')"
         />
         <input
@@ -31,6 +33,8 @@
           class="btn btn-dislike"
           id="btn-dislike"
           :value="dislikes + ' Dislike'"
+          :class="{ active: hasDisliked }"
+          :disabled="hasLiked"
           v-on:click="reactToMessage('dislike')"
         />
       </div>
@@ -67,6 +71,7 @@
       </div>
     </div>
 
+    <!-- TODO: Create component -->
     <div id="comments" :key="comment._id" v-for="comment in comments">
       <div class="post-comment" v-if="comment.messageId == currentMessage">
         <div class="comment-infos">
@@ -93,6 +98,7 @@
 
 <script>
 import axios from 'axios';
+import EventBus from '@/eventBus';
 
 export default {
   name: 'inMessage',
@@ -111,6 +117,8 @@ export default {
       reacts: [],
       likes: '',
       dislikes: '',
+      hasLiked: '',
+      hasDisliked: '',
     };
   },
   props: {
@@ -122,6 +130,7 @@ export default {
   created() {
     this.fetchAnswers();
     this.fetchReacts();
+    EventBus.$on('RefreshReacts', this.fetchReacts);
   },
   methods: {
     fetchAnswers() {
@@ -214,7 +223,6 @@ export default {
         },
       }).then(({ data }) => {
         let reactsArray = data;
-        console.log(reactsArray);
 
         for (let i = 0; i < reactsArray.length; i++) {
           if (
@@ -227,12 +235,13 @@ export default {
               headers: {
                 Authorization: Token,
               },
-            }).then(({ data }) => {
-              console.log(data);
+            }).then(() => {
+              EventBus.$emit('RefreshReacts');
             });
             return;
           }
         }
+
         axios({
           method: 'post',
           url: `http://localhost:3000/api/thread/${threadId}/message/${messageId}/react`,
@@ -240,8 +249,8 @@ export default {
           headers: {
             Authorization: Token,
           },
-        }).then(({ data }) => {
-          console.log(data);
+        }).then(() => {
+          EventBus.$emit('RefreshReacts');
         });
       });
     },
@@ -249,6 +258,11 @@ export default {
       let threadId = this.$route.params.threadId;
       let messageId = this.$route.params.messageId;
       let Token = 'Bearer ' + localStorage.getItem('Token');
+
+      this.likes = 0;
+      this.dislikes = 0;
+      this.hasLiked = false;
+      this.hasDisliked = false;
 
       axios({
         method: 'get',
@@ -258,22 +272,17 @@ export default {
         },
       }).then(({ data }) => {
         this.reacts = data;
+        console.log(data);
         for (let i = 0; i < this.reacts.length; i++) {
           if (this.reacts[i].type === 'like') {
             this.likes++;
             if (this.reacts[i].userId === this.currentUserId) {
-              let likeBtn = document.getElementById('btn-like');
-              likeBtn.style.background = '#03c946';
-              likeBtn.style.color = 'white';
-              //TODO: add disable dislike
+              this.hasLiked = true;
             }
           } else if (this.reacts[i].type === 'dislike') {
             this.dislikes++;
             if (this.reacts[i].userId === this.currentUserId) {
-              let dislikeBtn = document.getElementById('btn-dislike');
-              dislikeBtn.style.background = '#ff4747';
-              dislikeBtn.style.color = 'white';
-              //TODO: add disable like
+              this.hasDisliked = true;
             }
           } else {
             console.error('Unvalid');
@@ -492,7 +501,16 @@ export default {
           border: 2px $custom-green solid;
           color: $custom-green;
 
-          &:hover {
+          &:disabled {
+            opacity: 0.6;
+          }
+
+          &:not(:disabled):hover {
+            background: $custom-green;
+            color: white;
+          }
+
+          &.active {
             background: $custom-green;
             color: white;
           }
@@ -502,7 +520,16 @@ export default {
           border: 2px $custom-red solid;
           color: $custom-red;
 
-          &:hover {
+          &:disabled {
+            opacity: 0.6;
+          }
+
+          &:not(:disabled):hover {
+            background: $custom-red;
+            color: white;
+          }
+
+          &.active {
             background: $custom-red;
             color: white;
           }
