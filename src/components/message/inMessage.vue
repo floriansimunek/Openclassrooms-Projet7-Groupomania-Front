@@ -149,6 +149,7 @@ export default {
     this.fetchAnswers();
     this.fetchReacts();
     EventBus.$on('RefreshReacts', this.fetchReacts);
+    EventBus.$on('RefreshAnswers', this.fetchAnswers);
   },
   methods: {
     fetchAnswers() {
@@ -164,44 +165,6 @@ export default {
       })
         .then(({ data }) => {
           this.comments = data;
-
-          /*for (let i = 0; i < this.comments.length; i++) {
-            axios({
-              method: 'get',
-              url: `http://localhost:3000/api/user/${this.comments[i].userId}`,
-              headers: {
-                Authorization: Token,
-              },
-            }).then(({ data }) => {
-              this.user = data;
-            });
-          }*/
-
-          /*for (let comment of this.comments) {
-            if (comment.messageId) {
-              axios({
-                method: 'get',
-                url: `http://localhost:3000/api/user/${this.comments.userId}`,
-                headers: {
-                  Authorization: Token,
-                },
-              }).then(({ data }) => {
-                this.user = data;
-                console.log(this.user);
-              });
-            }
-          }*/
-
-          /*// TODO: get user
-          axios({
-            method: 'get',
-            url: `http://localhost:3000/api/user/${this.comments[0].userId}`,
-            headers: {
-              Authorization: Token,
-            },
-          }).then(({ data }) => {
-            this.user = data;
-          });*/
         })
         .catch((error) => {
           if (error.response.status === 401) {
@@ -251,9 +214,9 @@ export default {
           Authorization: Token,
         },
       }).then(() => {
-        //TODO: Refresh
         let modal = document.getElementById('messageAnswerModal');
         modal.style.display = 'none';
+        EventBus.$emit('RefreshAnswers');
       });
     },
     reactToMessage(reactType) {
