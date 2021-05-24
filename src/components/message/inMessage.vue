@@ -72,45 +72,27 @@
     </div>
 
     <!-- TODO: Create component -->
-    <div id="comments" :key="comment._id" v-for="comment in comments">
-      <div class="post-comment" v-if="comment.messageId == currentMessage">
-        <div class="comment-infos">
-          <div class="profile-picture"></div>
-          <p>
-            Écrit par {{ comment.userId }} •
-            {{
-              new Date(Date.parse(comment.createdAt))
-                .toLocaleDateString('fr', {
-                  hour: 'numeric',
-                  minute: 'numeric',
-                })
-                .replace(':', 'h')
-            }}
-          </p>
-        </div>
-        <p class="comment-text">
-          {{ comment.message }}
-        </p>
-      </div>
-    </div>
+    <Comments v-if="this.comments.length > 0" :comments="this.comments" />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import EventBus from '@/eventBus';
+import Comments from '@/components/message/comment';
 
 export default {
   name: 'inMessage',
+  components: { Comments },
   data() {
     return {
       error: '',
       user: '',
       currentMessage: this.$route.params.messageId,
       currentUserId: localStorage.getItem('userId'),
-      comments: '',
+      comments: [],
       answerMessageDatas: {
-        subject: '.',
+        subject: 'answer',
         message: '',
         messageId: '',
       },
@@ -234,6 +216,7 @@ export default {
           Authorization: Token,
         },
       }).then(() => {
+        //TODO: Refresh
         let modal = document.getElementById('messageAnswerModal');
         modal.style.display = 'none';
       });
@@ -542,53 +525,6 @@ export default {
           }
         }
       }
-    }
-  }
-}
-
-/* Comments */
-#comments {
-  @media screen and(min-width: 992px) {
-    padding-left: 10%;
-  }
-
-  .post-comment {
-    width: 90%;
-    margin: 15px auto;
-    margin-right: 10px;
-    border-radius: 5px;
-    background: #fff;
-    padding: 5px 0;
-
-    @media screen and(min-width: 992px) {
-      width: 70%;
-      margin-right: auto;
-    }
-
-    .comment-infos {
-      display: flex;
-      margin: 15px auto;
-      justify-content: space-around;
-      align-items: center;
-
-      @media screen and(min-width: 992px) {
-        justify-content: left;
-      }
-
-      .profile-picture {
-        width: 50px;
-        height: 50px;
-        background: gray;
-
-        @media screen and(min-width: 992px) {
-          margin: 0 15px;
-        }
-      }
-    }
-
-    .comment-text {
-      margin: 10px;
-      text-align: justify;
     }
   }
 }

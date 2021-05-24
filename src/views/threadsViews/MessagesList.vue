@@ -11,7 +11,6 @@
 
     <MessageButtonsModal :message="message" />
 
-    <!-- à quoi ça sert :key ? -->
     <Message :key="message._id" :message="message" />
   </main>
 </template>
