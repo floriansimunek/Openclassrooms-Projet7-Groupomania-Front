@@ -23,7 +23,7 @@
           type="button"
           class="btn btn-like"
           id="btn-like"
-          :value="likes + ' Like'"
+          :value="likesCount + ' Like'"
           :class="{ active: hasLiked }"
           :disabled="hasDisliked"
           v-on:click="reactToMessage('like')"
@@ -32,7 +32,7 @@
           type="button"
           class="btn btn-dislike"
           id="btn-dislike"
-          :value="dislikes + ' Dislike'"
+          :value="dislikesCount + ' Dislike'"
           :class="{ active: hasDisliked }"
           :disabled="hasLiked"
           v-on:click="reactToMessage('dislike')"
@@ -115,16 +115,44 @@ export default {
         messageId: '',
       },
       reacts: [],
-      likes: '',
-      dislikes: '',
-      hasLiked: '',
-      hasDisliked: '',
     };
   },
   props: {
     message: {
       type: Object,
       required: true,
+    },
+  },
+  computed: {
+    hasLiked() {
+      for (let react of this.reacts) {
+        if (react.type === 'like' && react.userId === this.currentUserId) {
+          return true;
+        }
+      }
+      return false;
+    },
+    hasDisliked() {
+      for (let react of this.reacts) {
+        if (react.type === 'dislike' && react.userId === this.currentUserId) {
+          return true;
+        }
+      }
+      return false;
+    },
+    likesCount() {
+      let likesCount = 0;
+      this.reacts.forEach((react) => {
+        if (react.type === 'like') likesCount++;
+      });
+      return likesCount;
+    },
+    dislikesCount() {
+      let dislikesCount = 0;
+      this.reacts.forEach((react) => {
+        if (react.type === 'dislike') dislikesCount++;
+      });
+      return dislikesCount;
     },
   },
   created() {
@@ -259,11 +287,6 @@ export default {
       let messageId = this.$route.params.messageId;
       let Token = 'Bearer ' + localStorage.getItem('Token');
 
-      this.likes = 0;
-      this.dislikes = 0;
-      this.hasLiked = false;
-      this.hasDisliked = false;
-
       axios({
         method: 'get',
         url: `http://localhost:3000/api/thread/${threadId}/message/${messageId}/react`,
@@ -272,22 +295,6 @@ export default {
         },
       }).then(({ data }) => {
         this.reacts = data;
-        console.log(data);
-        for (let i = 0; i < this.reacts.length; i++) {
-          if (this.reacts[i].type === 'like') {
-            this.likes++;
-            if (this.reacts[i].userId === this.currentUserId) {
-              this.hasLiked = true;
-            }
-          } else if (this.reacts[i].type === 'dislike') {
-            this.dislikes++;
-            if (this.reacts[i].userId === this.currentUserId) {
-              this.hasDisliked = true;
-            }
-          } else {
-            console.error('Unvalid');
-          }
-        }
       });
     },
   },
