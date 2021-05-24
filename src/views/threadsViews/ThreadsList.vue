@@ -45,6 +45,8 @@ export default {
         subject: '',
         message: '',
       },
+      comments: [],
+      commentCount: '',
     };
   },
   created() {
@@ -52,6 +54,7 @@ export default {
     EventBus.$on('RefreshThread', this.fetchThread);
     this.fetchMessages();
     EventBus.$on('RefreshMessages', this.fetchMessages);
+    this.fetchAnswers();
   },
   methods: {
     fetchThread() {
@@ -89,6 +92,31 @@ export default {
       }).then(({ data }) => {
         this.messages = data;
       });
+    },
+    fetchAnswers() {
+      let threadId = this.$route.params.threadId;
+      let Token = 'Bearer ' + localStorage.getItem('Token');
+
+      axios({
+        method: 'get',
+        url: `http://localhost:3000/api/thread/${threadId}/message`,
+        headers: {
+          Authorization: Token,
+        },
+      })
+        .then(({ data }) => {
+          this.comments = data;
+          for (let comment of this.comments) {
+            if (comment.messageId) {
+              this.commentCount++;
+            }
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.$router.push('/api/user/login');
+          }
+        });
     },
   },
   beforeRouteUpdate(to, from, next) {

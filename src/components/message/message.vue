@@ -19,8 +19,7 @@
               minute: 'numeric',
             })
             .replace(':', 'h')
-        }}<br />
-        {{ commentCount }} commentaires
+        }}
       </p>
     </router-link>
   </div>
@@ -41,11 +40,6 @@ export default {
     createdAt: {
       type: String,
       required: true,
-    },
-    commentCount: {
-      type: Number,
-      // TODO: Set required true
-      required: false,
     },
     messageId: {
       type: String,
