@@ -13,7 +13,7 @@ export default {
       required: true,
     },
     threadId: {
-      type: String,
+      type: Number,
       required: true,
     },
   },

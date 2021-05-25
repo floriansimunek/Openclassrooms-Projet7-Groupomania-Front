@@ -116,7 +116,7 @@ export default {
   computed: {
     hasLiked() {
       for (let react of this.reacts) {
-        if (react.type === 'like' && react.userId === this.currentUserId) {
+        if (react.type === 'like' && react.userId === +this.currentUserId) {
           return true;
         }
       }
@@ -124,7 +124,7 @@ export default {
     },
     hasDisliked() {
       for (let react of this.reacts) {
-        if (react.type === 'dislike' && react.userId === this.currentUserId) {
+        if (react.type === 'dislike' && react.userId === +this.currentUserId) {
           return true;
         }
       }
@@ -235,7 +235,7 @@ export default {
 
         for (let i = 0; i < reactsArray.length; i++) {
           if (
-            reactsArray[i].userId === this.currentUserId &&
+            reactsArray[i].userId === +this.currentUserId &&
             reactType === reactsArray[i].type
           ) {
             axios({

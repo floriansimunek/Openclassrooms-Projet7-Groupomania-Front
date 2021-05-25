@@ -1,6 +1,6 @@
 <template>
-  <main v-if="this.thread._id">
-    <div id="threadInformations" v-if="this.user.username">
+  <main>
+    <div id="threadInformations" v-if="user && thread">
       <ThreadInformations
         :key="thread._id"
         :name="thread.name"
@@ -10,9 +10,9 @@
       />
     </div>
 
-    <ThreadButtonsModal :thread="thread" :message="message" />
+    <ThreadButtonsModal v-if="thread" :thread="thread" :message="message" />
 
-    <div id="messages" v-if="this.user.username">
+    <div id="messages" v-if="user">
       <Message
         v-for="message in messages"
         :key="message._id"
@@ -39,8 +39,8 @@ export default {
   data() {
     return {
       messages: [],
-      thread: [],
-      user: [],
+      thread: null,
+      user: null,
       message: {
         subject: '',
         message: '',

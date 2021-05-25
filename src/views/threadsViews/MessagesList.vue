@@ -1,6 +1,6 @@
 <template>
-  <main v-if="this.message._id">
-    <div id="informations-bar" v-if="this.user.username">
+  <main v-if="message">
+    <div id="informations-bar" v-if="user">
       <MessageInformations
         :key="message._id"
         :username="user.username"
@@ -9,9 +9,9 @@
       />
     </div>
 
-    <MessageButtonsModal :message="message" />
+    <MessageButtonsModal v-if="message" :message="message" />
 
-    <Message :key="message._id" :message="message" />
+    <Message v-if="message" :key="message._id" :message="message" />
   </main>
 </template>
 
@@ -26,8 +26,8 @@ export default {
   components: { MessageInformations, MessageButtonsModal, Message },
   data() {
     return {
-      message: [],
-      user: [],
+      message: null,
+      user: null,
       error: '',
       currentUserId: localStorage.getItem('userId'),
     };

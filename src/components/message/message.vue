@@ -42,11 +42,11 @@ export default {
       required: true,
     },
     messageId: {
-      type: String,
+      type: Number,
       required: true,
     },
     answerMessageId: {
-      type: String,
+      type: Number,
       required: false,
     },
   },
