@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="message-buttons" v-if="message.userId === currentUserId">
+    <div class="message-buttons" v-if="message.userId === +currentUserId">
       <input
         type="button"
         value="Supprimer Message"

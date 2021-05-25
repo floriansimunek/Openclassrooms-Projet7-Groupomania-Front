@@ -7,7 +7,7 @@
         class="btn deleteThreadBtn"
         id="deleteThreadBtn"
         v-on:click="deleteThreadConfirmation()"
-        v-if="thread.userId === currentUserId"
+        v-if="thread.userId === +currentUserId"
       />
       <input
         type="button"
@@ -15,7 +15,7 @@
         class="btn modifyThreadBtn"
         id="modifyThreadBtn"
         v-on:click="modifyThreadPopup()"
-        v-if="thread.userId === currentUserId"
+        v-if="thread.userId === +currentUserId"
       />
       <input
         type="button"
