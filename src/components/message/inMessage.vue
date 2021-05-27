@@ -51,6 +51,13 @@
               placeholder="Votre message"
               v-model="answerMessageDatas.message"
             />
+            <div
+              style="color: red"
+              class="usernameInputError"
+              v-if="answerMessageError.message"
+            >
+              {{ answerMessageError.message }}
+            </div>
           </div>
           {{ error }}
           <div class="messageAnswer-buttons">
@@ -64,6 +71,7 @@
               value="Créer"
               type="button"
               id="answerMessageButton"
+              :disabled="answerMessageError"
               v-on:click="answerMessage()"
             />
           </div>
@@ -101,7 +109,7 @@ export default {
       comments: [],
       answerMessageDatas: {
         subject: 'answer',
-        message: '',
+        message: null,
         messageId: '',
       },
       reacts: [],
@@ -114,6 +122,31 @@ export default {
     },
   },
   computed: {
+    answerMessageError() {
+      if (this.answerMessageDatas.message === null) {
+        return false;
+      }
+
+      if (!this.answerMessageDatas.message) {
+        return {
+          message: 'Le message est obligatoire',
+        };
+      } else if (
+        !/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/.test(
+          this.answerMessageDatas.message,
+        )
+      ) {
+        return {
+          message: 'Le message ne doit pas contenir de caractère spécial',
+        };
+      } else if (this.answerMessageDatas.message.length <= 2) {
+        return {
+          message: 'Le message doit être de plus de 3 caractères',
+        };
+      }
+
+      return false;
+    },
     hasLiked() {
       for (let react of this.reacts) {
         if (react.type === 'like' && react.userId === +this.currentUserId) {
@@ -379,7 +412,11 @@ export default {
       &__create,
       &__modify {
         background: $custom-green;
-        &:hover {
+        &:disabled {
+          opacity: 0.6;
+        }
+
+        &:not(:disabled):hover {
           cursor: pointer;
           background: white;
           color: $custom-green;

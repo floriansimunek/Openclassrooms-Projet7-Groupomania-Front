@@ -170,7 +170,12 @@ export default {
     },
   },
   computed: {
-    inputsError() {},
+    inputsError() {
+      if (this.subjectError.message || this.messageError.message) {
+        return true;
+      }
+      return false;
+    },
     subjectError() {
       if (this.message.subject === null) {
         return false;
@@ -204,7 +209,7 @@ export default {
           message: 'Le message est obligatoire',
         };
       } else if (
-        !/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/.test(this.message.subject)
+        !/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/.test(this.message.message)
       ) {
         return {
           message: 'Le message ne doit pas contenir de caractère spécial',
@@ -499,7 +504,11 @@ export default {
       &__create,
       &__modify {
         background: $custom-green;
-        &:hover {
+        &:disabled {
+          opacity: 0.6;
+        }
+
+        &:not(:disabled):hover {
           cursor: pointer;
           background: white;
           color: $custom-green;
