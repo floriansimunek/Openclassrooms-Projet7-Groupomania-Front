@@ -44,19 +44,19 @@
           </div>
           {{ error }}
           <div class="user-system-buttons">
-            <router-link :to="{ name: 'Login' }">
-              <input
-                class="user-system-buttons-user-system"
-                type="submit"
-                value="Se connecter"
-              />
-            </router-link>
             <input
               class="user-system-buttons-register"
               type="button"
               value="S'inscrire"
               v-on:click="registerUser()"
             />
+            <router-link :to="{ name: 'Login' }" tag="p">
+              <input
+                class="user-system-buttons-user-system"
+                type="submit"
+                value="Se connecter"
+              />
+            </router-link>
           </div>
         </form>
       </div>

@@ -27,10 +27,17 @@
           </div>
           {{ error }}
           <div class="user-system-buttons">
+            <input
+              class="user-system-buttons-user-system"
+              value="Se connecter"
+              type="button"
+              v-on:click="loginUser()"
+            />
             <router-link
               :to="{
                 name: 'Register',
               }"
+              tag="p"
             >
               <input
                 class="user-system-buttons-register"
@@ -38,12 +45,6 @@
                 value="S'inscrire"
               />
             </router-link>
-            <input
-              class="user-system-buttons-user-system"
-              value="Se connecter"
-              type="button"
-              v-on:click="loginUser()"
-            />
           </div>
         </form>
       </div>
@@ -154,8 +155,7 @@ header {
   }
 
   &-buttons {
-    input,
-    p {
+    input {
       width: 20%;
       height: 30px;
       color: white;
