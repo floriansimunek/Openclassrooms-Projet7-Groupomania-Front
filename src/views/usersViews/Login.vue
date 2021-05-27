@@ -25,7 +25,7 @@
               v-model="user.password"
             />
           </div>
-          {{ error }}
+          <p style="color: red">{{ error }}</p>
           <div class="user-system-buttons">
             <input
               class="user-system-buttons-user-system"
@@ -170,7 +170,12 @@ header {
 
     &-user-system {
       background: $custom-green;
-      &:hover {
+
+      &:disabled {
+        opacity: 0.6;
+      }
+
+      &:not(:disabled):hover {
         cursor: pointer;
         background: white;
         color: $custom-green;
@@ -179,7 +184,12 @@ header {
 
     &-register {
       background: $darker-blue;
-      &:hover {
+
+      &:disabled {
+        opacity: 0.6;
+      }
+
+      &:not(:disabled):hover {
         cursor: pointer;
         background: white;
         color: $darker-blue;
