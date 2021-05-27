@@ -1,6 +1,8 @@
 <template>
   <header>
-    <h1><router-link :to="{ name: 'Home' }">Groupomania</router-link></h1>
+    <router-link :to="{ name: 'Home' }"
+      ><img src="@/images/icon-left-font-monochrome-white.png"
+    /></router-link>
   </header>
 </template>
 
@@ -29,18 +31,9 @@ header {
     grid-area: header;
     padding-left: 0;
   }
+}
 
-  h1 {
-    margin-right: 60px;
-
-    @media screen and (min-width: 992px) {
-      margin-left: 20px;
-    }
-
-    a {
-      text-decoration: none;
-      color: #fff;
-    }
-  }
+img {
+  transform: scale(0.3);
 }
 </style>
