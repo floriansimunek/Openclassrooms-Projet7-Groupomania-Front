@@ -16,6 +16,13 @@
               placeholder="Email"
               v-model="user.email"
             />
+            <div
+              style="color: red"
+              class="emailInputError"
+              v-if="emailError.message"
+            >
+              {{ emailError.message }}
+            </div>
             <label for="password">Mot de passe</label>
             <input
               type="password"
@@ -24,6 +31,13 @@
               placeholder="Mot de passe"
               v-model="user.password"
             />
+            <div
+              style="color: red"
+              class="passwordInputError"
+              v-if="passwordError.message"
+            >
+              {{ passwordError.message }}
+            </div>
           </div>
           <p style="color: red">{{ error }}</p>
           <div class="user-system-buttons">
@@ -32,6 +46,7 @@
               value="Se connecter"
               type="button"
               v-on:click="loginUser()"
+              :disabled="inputsError"
             />
             <router-link
               :to="{
@@ -60,11 +75,65 @@ export default {
   data() {
     return {
       user: {
-        email: '',
-        password: '',
+        email: null,
+        password: null,
       },
       error: '',
     };
+  },
+  computed: {
+    inputsError() {
+      if (this.emailError.message || this.passwordError.message) {
+        return true;
+      }
+      return false;
+    },
+    emailError() {
+      if (this.user.email === null) {
+        return false;
+      }
+
+      if (!this.user.email) {
+        return {
+          message: 'Merci de saisir une adresse mail',
+        };
+      } else if (typeof this.user.email !== 'string') {
+        return {
+          message:
+            'Merci de saisir une adresse mail valide (chaîne de caractères au format example@domaine.ext)',
+        };
+      } else if (
+        !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+          this.user.email,
+        )
+      ) {
+        return {
+          message:
+            'Merci de saisir une adresse mail valide (chaîne de caractères au format example@domaine.ext)',
+        };
+      }
+
+      return false;
+    },
+    passwordError() {
+      if (this.user.password === null) {
+        return false;
+      }
+
+      if (typeof this.user.password !== 'string') {
+        return {
+          message:
+            'Merci de saisir un mot de passe valide (chaîne de caractères)',
+        };
+      } else if (this.user.password.length <= 5) {
+        return {
+          message:
+            'Merci de saisir un mot de passe de plus de 6 caractères ou plus',
+        };
+      }
+
+      return false;
+    },
   },
   methods: {
     loginUser() {
