@@ -9,27 +9,35 @@
         <h2>S'inscrire</h2>
         <form action="" method="post">
           <div class="user-system-inputs">
+            <label for="username">Nom d'utilisateur</label>
             <input
               type="text"
               name="username"
+              id="username"
               placeholder="Nom d'utilisateur"
               v-model="user.username"
             />
+            <label for="email">Email</label>
             <input
               type="text"
               name="mail"
+              id="email"
               placeholder="Email"
               v-model="user.email"
             />
+            <label for="password">Mot de passe</label>
             <input
               type="password"
               name="password"
+              id="password"
               placeholder="Mot de passe"
               v-model="user.password"
             />
+            <label for="confirmPassword">Confirmation mot de passe</label>
             <input
               type="password"
               name="confirmPassword"
+              id="confirmPassword"
               placeholder="Confirmation mot de passe"
               v-model="user.confirmPassword"
             />

@@ -8,15 +8,19 @@
         <h2>Connexion</h2>
         <form action="" method="post">
           <div class="user-system-inputs">
+            <label for="email">Email</label>
             <input
               type="text"
               name="email"
+              id="email"
               placeholder="Email"
               v-model="user.email"
             />
+            <label for="password">Mot de passe</label>
             <input
               type="password"
               name="password"
+              id="password"
               placeholder="Mot de passe"
               v-model="user.password"
             />
@@ -30,7 +34,7 @@
             >
               <input
                 class="user-system-buttons-register"
-                type="submit"
+                type="button"
                 value="S'inscrire"
               />
             </router-link>
