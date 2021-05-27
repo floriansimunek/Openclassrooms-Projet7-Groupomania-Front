@@ -35,12 +35,26 @@
               placeholder="Nom du thread"
               v-model="thread.name"
             />
+            <div
+              style="color: red"
+              class="threadInputError"
+              v-if="threadNameError.message"
+            >
+              {{ threadNameError.message }}
+            </div>
             <input
               type="text"
               name="message"
               placeholder="Description"
               v-model="thread.description"
             />
+            <div
+              style="color: red"
+              class="threadInputError"
+              v-if="threadDescritionError.message"
+            >
+              {{ threadDescritionError.message }}
+            </div>
           </div>
           {{ error }}
           <div class="threadCreation-buttons">
@@ -53,7 +67,7 @@
               class="threadCreation-buttons__create"
               value="Créer"
               type="button"
-              :disabled="inputsError"
+              :disabled="threadError"
               v-on:click="createThread()"
             />
           </div>
@@ -97,7 +111,58 @@ export default {
     EventBus.$on('RefreshThread', this.fetchThreads);
   },
   computed: {
-    inputsError() {
+    threadError() {
+      if (this.threadNameError.message || this.threadDescritionError.message) {
+        return true;
+      }
+      return false;
+    },
+    threadNameError() {
+      if (this.thread.name === null) {
+        return false;
+      }
+
+      if (!this.thread.name) {
+        return {
+          message: 'Le nom est obligatoire',
+        };
+      } else if (
+        !/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/.test(this.thread.name)
+      ) {
+        return {
+          message: 'Le nom ne doit pas contenir de caractère spécial',
+        };
+      } else if (this.thread.name.length <= 2) {
+        return {
+          message: 'Le nom doit être de plus de 3 caractères',
+        };
+      }
+
+      return false;
+    },
+    threadDescritionError() {
+      if (this.thread.description === null) {
+        return false;
+      }
+
+      if (!this.thread.description) {
+        return {
+          message: 'Le nom est obligatoire',
+        };
+      } else if (
+        !/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/.test(
+          this.thread.description,
+        )
+      ) {
+        return {
+          message: 'Le nom ne doit pas contenir de caractère spécial',
+        };
+      } else if (this.thread.description.length <= 2) {
+        return {
+          message: 'Le nom doit être de plus de 3 caractères',
+        };
+      }
+
       return false;
     },
   },
