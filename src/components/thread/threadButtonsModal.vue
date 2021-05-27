@@ -90,12 +90,26 @@
               placeholder="Sujet du message"
               v-model="message.subject"
             />
+            <div
+              style="color: red"
+              class="usernameInputError"
+              v-if="subjectError.message"
+            >
+              {{ subjectError.message }}
+            </div>
             <textarea
               type="text"
               name="message"
               placeholder="Votre message"
               v-model="message.message"
             />
+            <div
+              style="color: red"
+              class="usernameInputError"
+              v-if="messageError.message"
+            >
+              {{ messageError.message }}
+            </div>
           </div>
           <form
             action=""
@@ -123,6 +137,7 @@
               class="messageCreation-buttons__create"
               value="Créer"
               type="button"
+              :disabled="inputsError"
               v-on:click="createMessage()"
             />
           </div>
@@ -153,6 +168,59 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  computed: {
+    inputsError() {},
+    subjectError() {
+      if (this.message.subject === null) {
+        return false;
+      }
+
+      if (!this.message.subject) {
+        return {
+          message: 'Le sujet est obligatoire',
+        };
+      } else if (
+        !/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/.test(this.message.subject)
+      ) {
+        return {
+          message: 'Le sujet ne doit pas contenir de caractère spécial',
+        };
+      } else if (this.message.subject.length <= 2) {
+        return {
+          message: 'Le sujet doit être de plus de 3 caractères',
+        };
+      }
+
+      return false;
+    },
+    messageError() {
+      if (this.message.message === null) {
+        return false;
+      }
+
+      if (!this.message.message) {
+        return {
+          message: 'Le message est obligatoire',
+        };
+      } else if (
+        !/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/.test(this.message.subject)
+      ) {
+        return {
+          message: 'Le message ne doit pas contenir de caractère spécial',
+        };
+      } else if (this.message.message.length <= 2) {
+        return {
+          message: 'Le message doit être de plus de 3 caractères',
+        };
+      }
+
+      return false;
+    },
+  },
+  created() {
+    this.message.subject = null;
+    this.message.message = null;
   },
   methods: {
     deleteThreadConfirmation() {
